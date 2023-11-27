@@ -1,8 +1,6 @@
 const Student = require('../models/Student');
-const uuid = require('uuid');
 
 // Register student handler
-
 const generateUniqueRandomNumericPortion = async () => {
     const min = 1000;
     const max = 9999;
@@ -12,8 +10,6 @@ const generateUniqueRandomNumericPortion = async () => {
   
     while (!isUnique) {
       randomNumericPortion = Math.floor(Math.random() * (max - min + 1)) + min;
-  
-      // Check if the generated number is unique
       const existingStudent = await Student.findOne({ internshipCode: randomNumericPortion });
       isUnique = !existingStudent;
     }
