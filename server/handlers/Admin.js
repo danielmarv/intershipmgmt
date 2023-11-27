@@ -1,6 +1,6 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const AdminUser = require('../models/AdminUser'); // Adjust the path based on your project structure
+const AdminUser = require('../models/AdminUser'); 
 
 const hashPassword = async (password) => {
   const saltRounds = 10;
@@ -12,7 +12,7 @@ const comparePasswords = async (password, hashedPassword) => {
 };
 const generateToken = (userId, role) => {
   const secretKey = 'your-secret-key'; 
-  return jwt.sign({ userId, role }, secretKey, { expiresIn: '1h' }); // Adjust the expiration time as needed
+  return jwt.sign({ userId, role }, secretKey, { expiresIn: '1h' }); 
 };
 
 // Authentication handler
