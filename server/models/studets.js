@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const bcrypt = require("bcryptjs");
 const studentSchema = new mongoose.Schema({
     studentName: {
         firstName: {
@@ -39,6 +38,10 @@ const studentSchema = new mongoose.Schema({
         password: {
             type: String,
             required: true,
+        },
+        phoneNum: {
+            type: String,
+            required: false,
         },
     },
     schoolId: {
