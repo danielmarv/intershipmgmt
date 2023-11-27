@@ -55,4 +55,6 @@ const studentSchema = new mongoose.Schema({
     internships: [{ type: mongoose.Schema.Types.ObjectId, ref: "Internship" }],
 });
 
-module.exports = mongoose.model("Student", studentSchema);
+const Student = mongoose.model('Student', studentSchema);
+
+module.exports = Student;
