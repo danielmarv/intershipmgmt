@@ -2,7 +2,6 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const AdminUser = require('../models/AdminUser'); // Adjust the path based on your project structure
 
-// Function to hash the password
 const hashPassword = async (password) => {
   const saltRounds = 10;
   return bcrypt.hash(password, saltRounds);
@@ -54,15 +53,6 @@ const authenticateAdminUser = async (req, res, next) => {
   }
 };
 
-const bcrypt = require('bcrypt');
-const AdminUser = require('../models/AdminUser');
-
-// Function to hash the password
-// const hashPassword = async (password) => {
-//   const saltRounds = 10;
-//   return bcrypt.hash(password, saltRounds);
-// };
-
 // Update admin user handler
 const updateAdminUser = async (req, res) => {
   try {
@@ -107,15 +97,6 @@ const getUser = async (req, res) => {
   }
 };
 
-const bcrypt = require('bcrypt');
-const AdminUser = require('../models/AdminUser');
-
-// Function to hash the password
-const hashPassword = async (password) => {
-  const saltRounds = 10;
-  return bcrypt.hash(password, saltRounds);
-};
-
 // Register admin user handler
 const registerAdminUser = async (req, res) => {
   try {
@@ -144,12 +125,6 @@ const registerAdminUser = async (req, res) => {
 };
 
 module.exports = registerAdminUser;
-
-
 module.exports = getUser;
-
-
 module.exports = updateAdminUser;
-
-
 module.exports = authenticateAdminUser;
