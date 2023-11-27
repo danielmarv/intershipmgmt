@@ -1,6 +1,6 @@
 const Student = require('../models/Student');
 
-// Register student handler
+// Generating the Internshipcode
 const generateUniqueRandomNumericPortion = async () => {
     const min = 1000;
     const max = 9999;
@@ -16,6 +16,8 @@ const generateUniqueRandomNumericPortion = async () => {
   
     return randomNumericPortion;
   };
+
+  // Register student handler
 const registerStudent = async (req, res) => {
   try {
     const {
