@@ -7,14 +7,11 @@ const hashPassword = async (password) => {
   return bcrypt.hash(password, saltRounds);
 };
 
-// Function to compare the provided password with the hashed password
 const comparePasswords = async (password, hashedPassword) => {
   return bcrypt.compare(password, hashedPassword);
 };
-
-// Function to generate a JWT token
 const generateToken = (userId, role) => {
-  const secretKey = 'your-secret-key'; // Replace with your actual secret key
+  const secretKey = 'your-secret-key'; 
   return jwt.sign({ userId, role }, secretKey, { expiresIn: '1h' }); // Adjust the expiration time as needed
 };
 
@@ -61,9 +58,6 @@ const updateAdminUser = async (req, res) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 };
-
-const AdminUser = require('../models/AdminUser');
-
 const getUser = async (req, res) => {
   try {
     const { userId } = req.params;
@@ -87,8 +81,6 @@ const registerAdminUser = async (req, res) => {
     const { username, password, role, schoolId, departmentId } = req.body;
 
     const hashedPassword = await hashPassword(password);
-
-    // Create the admin user
     const newAdminUser = new AdminUser({
       username,
       password: hashedPassword,
@@ -96,8 +88,6 @@ const registerAdminUser = async (req, res) => {
       schoolId,
       departmentId,
     });
-
-    // Save the admin user to the database
     const savedAdminUser = await newAdminUser.save();
 
     res.status(201).json(savedAdminUser);
