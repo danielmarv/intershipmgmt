@@ -22,30 +22,20 @@ const generateToken = (userId, role) => {
 const authenticateAdminUser = async (req, res, next) => {
   try {
     const { username, password } = req.body;
-
-    // Find the admin user by username
     const adminUser = await AdminUser.findOne({ username });
 
     if (!adminUser) {
       return res.status(401).json({ error: 'Authentication failed. User not found.' });
     }
-
-    // Compare passwords
     const passwordMatch = await comparePasswords(password, adminUser.password);
 
     if (!passwordMatch) {
       return res.status(401).json({ error: 'Authentication failed. Incorrect password.' });
     }
 
-    // Generate a JWT token
     const token = generateToken(adminUser._id, adminUser.role);
 
-    // Attach the token to the response or use it as needed
     res.locals.token = token;
-
-    // You may also attach other user information to res.locals for further use
-
-    // Proceed to the next middleware or route handler
     next();
   } catch (error) {
     console.error('Authentication error:', error);
@@ -58,11 +48,7 @@ const updateAdminUser = async (req, res) => {
   try {
     const { userId } = req.params;
     const { password } = req.body;
-
-    // Hash the new password if provided
     const hashedPassword = password ? await hashPassword(password) : undefined;
-
-    // Update the admin user
     const updatedAdminUser = await AdminUser.findByIdAndUpdate(
       userId,
       { password: hashedPassword },
@@ -78,12 +64,10 @@ const updateAdminUser = async (req, res) => {
 
 const AdminUser = require('../models/AdminUser');
 
-// Get user handler
 const getUser = async (req, res) => {
   try {
     const { userId } = req.params;
 
-    // Get the admin user
     const adminUser = await AdminUser.findById(userId);
 
     if (!adminUser) {
@@ -102,7 +86,6 @@ const registerAdminUser = async (req, res) => {
   try {
     const { username, password, role, schoolId, departmentId } = req.body;
 
-    // Hash the password
     const hashedPassword = await hashPassword(password);
 
     // Create the admin user
