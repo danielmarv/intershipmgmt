@@ -56,8 +56,6 @@ const registerStudent = async (req, res) => {
       },
       internshipCode,
     });
-
-    // Save the student to the database
     const savedStudent = await newStudent.save();
 
     res.status(201).json(savedStudent);
