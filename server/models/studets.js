@@ -27,7 +27,7 @@ const studentSchema = new mongoose.Schema({
       required: false,
     },
   },
-  schoolCategory: {
+  schoolPractice: {
     type: String,
     enum: ['prac1', 'prac2'],
     default: 'prac1',
