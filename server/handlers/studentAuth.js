@@ -66,3 +66,5 @@ const registerStudent = async (req, res) => {
 };
 
 module.exports = registerStudent;
+
+// Path: server/routes/studentAuth.js
