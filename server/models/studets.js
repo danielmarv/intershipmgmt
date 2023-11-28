@@ -27,12 +27,12 @@ const studentSchema = new mongoose.Schema({
       required: false,
     },
   },
-  schoolPractice: {
-    type: String,
-    enum: ['prac1', 'prac2'],
-    default: 'prac1',
-    required: true,
-  },
+    schoolPractices: [
+        {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Practice',
+        },
+    ],
   moneyPaid: {
     type: Number,
     required: true,
