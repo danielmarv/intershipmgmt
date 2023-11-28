@@ -68,3 +68,24 @@ const registerStudent = async (req, res) => {
 module.exports = registerStudent;
 
 // Path: server/routes/studentAuth.js
+// Student authentication route
+router.post('/authenticate', async (req, res) => {
+  try {
+    const { internshipCode } = req.body;
+    const student = await Student.findOne({ internshipCode });
+
+    if (!student) {
+      return res.status(404).json({ error: 'Student not found' });
+    }
+
+    res.status(200).json({
+      studentId: student._id,
+      internshipStatus: student.internshipStatus,
+    });
+  } catch (error) {
+    console.error('Student authentication error:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+module.exports = router;
