@@ -1,48 +1,94 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
+
 const studentSchema = new mongoose.Schema({
     fullName: {
         type: String,
-        required: false,
+        required: true,
     },
     campusName: {
         type: String,
+        required: true,
+    },
+    schoolName: {
+        type: String,
+        required: true,
+    },
+    townName: {
+        type: String,
+        required: true,
+    },
+    districtName: {
+        type: String,
+        required: true,
+    },
+    distanceFromBugemaCampuses: {
+        kilometers: {
+        type: Number,
         required: false,
+        },
+    },
+    schoolPractices: [
+        {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Practice',
+        },
+    ],
+    moneyPaid: {
+        type: Number,
+        required: true,
     },
     studentDetails: {
-        currentClass: {
-            year: {
-                type: String,
-                required: false,
-            },
-            sem: {
-                type: Number,
-                required: false,
-            },
+        regNo: {
+        type: String,
+        required: true,
+        unique: true,
         },
-        emailId: {
+        currentClass: {
+        year: {
             type: String,
             required: true,
-            unique: true,
+        },
+        sem: {
+            type: Number,
+            required: true,
+        },
+        },
+        emailId: {
+        type: String,
+        required: true,
+        unique: true,
         },
         phoneNum: {
-            type: String,
-            required: false,
+        type: String,
+        required: true,
         },
     },
-    schoolId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'School',
+    internshipCode: {
+        type: String,
         required: true,
+        unique: true,
     },
-    departmentId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Department',
-        required: true,
-    },
-    created: { type: Date, default: Date.now },
-    internships: [{ type: mongoose.Schema.Types.ObjectId, ref: "Internship" }],
+    markSheet: [
+        {
+        supervisor: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'InternshipSupervisor',
+            required: true,
+        },
+        marks: {
+            type: Number,
+            required: true,
+        },
+        },
+    ],
+    internshipSupervisors: [
+        {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: 'InternshipSupervisor',
+        },
+    ],
+
 });
 
 const Student = mongoose.model('Student', studentSchema);
-
 module.exports = Student;
