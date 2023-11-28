@@ -1,4 +1,7 @@
 const Student = require('../models/Student');
+const express = require('express');
+const router = express.Router();
+
 
 // Generating the Internshipcode
 const generateUniqueRandomNumericPortion = async () => {
@@ -67,7 +70,6 @@ const registerStudent = async (req, res) => {
 
 module.exports = registerStudent;
 
-// Path: server/routes/studentAuth.js
 // Student authentication route
 router.post('/authenticate', async (req, res) => {
   try {
@@ -77,11 +79,28 @@ router.post('/authenticate', async (req, res) => {
     if (!student) {
       return res.status(404).json({ error: 'Student not found' });
     }
-
-    res.status(200).json({
-      studentId: student._id,
-      internshipStatus: student.internshipStatus,
-    });
+    if (student.internshipStatus === 'Approved') {
+      // Student is approved, return relevant information
+      return res.status(200).json({
+        studentId: student._id,
+        internshipStatus: student.internshipStatus,
+      });
+    } else if (student.internshipStatus === 'Rejected') {
+      // Student is rejected, return relevant information
+      return res.status(200).json({
+        studentId: student._id,
+        internshipStatus: student.internshipStatus,
+        rejectionReason: student.rejectionReason, // Assuming there's a field for rejection reason
+        // Add other relevant information as needed
+      });
+    } else {
+      // Student is in pending status, return relevant information
+      return res.status(200).json({
+        studentId: student._id,
+        internshipStatus: student.internshipStatus,
+        // Add other relevant information as needed
+      });
+    }
   } catch (error) {
     console.error('Student authentication error:', error);
     res.status(500).json({ error: 'Internal Server Error' });
@@ -89,3 +108,4 @@ router.post('/authenticate', async (req, res) => {
 });
 
 module.exports = router;
+
