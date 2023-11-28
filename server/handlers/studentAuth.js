@@ -1,6 +1,7 @@
 const Student = require('../models/Student');
 const express = require('express');
 const router = express.Router();
+const Practice = require('../models/practice');
 
 
 // Generating the Internshipcode
