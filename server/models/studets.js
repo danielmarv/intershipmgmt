@@ -1,46 +1,74 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
+
 const studentSchema = new mongoose.Schema({
-    fullName: {
+  fullName: {
+    type: String,
+    required: true,
+  },
+  campusName: {
+    type: String,
+    required: true,
+  },
+  schoolName: {
+    type: String,
+    required: true,
+  },
+  townName: {
+    type: String,
+    required: true,
+  },
+  districtName: {
+    type: String,
+    required: true,
+  },
+  distanceFromBugemaCampuses: {
+    kilometers: {
+      type: Number,
+      required: false,
+    },
+  },
+  schoolCategory: {
+    type: String,
+    enum: ['prac1', 'prac2'],
+    default: 'prac1',
+    required: true,
+  },
+  moneyPaid: {
+    type: Number,
+    required: true,
+  },
+  studentDetails: {
+    regNo: {
+      type: String,
+      required: true,
+      unique: true,
+    },
+    currentClass: {
+      year: {
         type: String,
-        required: false,
-    },
-    campusName: {
-        type: String,
-        required: false,
-    },
-    studentDetails: {
-        currentClass: {
-            year: {
-                type: String,
-                required: false,
-            },
-            sem: {
-                type: Number,
-                required: false,
-            },
-        },
-        emailId: {
-            type: String,
-            required: true,
-            unique: true,
-        },
-        phoneNum: {
-            type: String,
-            required: false,
-        },
-    },
-    schoolId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'School',
         required: true,
-    },
-    departmentId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Department',
+      },
+      sem: {
+        type: Number,
         required: true,
+      },
     },
-    created: { type: Date, default: Date.now },
-    internships: [{ type: mongoose.Schema.Types.ObjectId, ref: "Internship" }],
+    emailId: {
+      type: String,
+      required: true,
+      unique: true,
+    },
+    phoneNum: {
+      type: String,
+      required: true,
+    },
+  },
+  internshipCode: {
+    type: String,
+    required: true,
+    unique: true,
+  },
+
 });
 
 const Student = mongoose.model('Student', studentSchema);
