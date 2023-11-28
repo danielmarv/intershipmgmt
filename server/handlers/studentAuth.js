@@ -21,53 +21,67 @@ const generateUniqueRandomNumericPortion = async () => {
   };
 
   // Register student handler
-const registerStudent = async (req, res) => {
-  try {
-    const {
+  const registerStudent = async (req, res) => {
+    try {
+      const {
         fullName,
-      schoolName,
-      campusName,
-      townName,
-      districtName,
-      distanceFromBugemaCampuses,
-      schoolCategory,
-      moneyPaid,
-      currentClassYear,
-      currentClassSem,
-      emailId,
-    } = req.body;
-
-    const currentYear = new Date().getFullYear();
-    const randomNumericPortion = generateUniqueRandomNumericPortion();
-    const internshipCode = `${currentYear}/${randomNumericPortion}`;
-
-    // Create the student
-    const newStudent = new Student({
-      fullName,
-      campusName,
-      schoolName,
-      townName,
-      districtName,
-      distanceFromBugemaCampuses,
-      schoolCategory,
-      moneyPaid,
-      studentDetails: {
-        regNo,
-        currentClass: { year: currentClassYear, sem: currentClassSem },
+        schoolName,
+        campusName,
+        townName,
+        districtName,
+        distanceFromBugemaCampuses,
+        schoolCategory,
+        moneyPaid,
+        currentClassYear,
+        currentClassSem,
         emailId,
-        phoneNum,
-      },
-      internshipCode,
-    });
-    const savedStudent = await newStudent.save();
-
-    res.status(201).json(savedStudent);
-  } catch (error) {
-    console.error('Register student error:', error);
-    res.status(500).json({ error: 'Internal Server Error' });
-  }
-};
-
+        selectedPractices, // Assuming you receive an array of selected practices from the request
+      } = req.body;
+  
+      const currentYear = new Date().getFullYear();
+      const randomNumericPortion = generateUniqueRandomNumericPortion();
+      const internshipCode = `${currentYear}/${randomNumericPortion}`;
+  
+      // Create the student
+      const newStudent = new Student({
+        fullName,
+        campusName,
+        schoolName,
+        townName,
+        districtName,
+        distanceFromBugemaCampuses,
+        schoolCategory,
+        moneyPaid,
+        studentDetails: {
+          regNo: generateUniqueRegistrationNumber(), // Assuming you have a function for generating unique registration numbers
+          currentClass: { year: currentClassYear, sem: currentClassSem },
+          emailId,
+          phoneNum, // Assuming phoneNum is defined in the request body
+        },
+        internshipCode,
+      });
+  
+      // Associate the student with selected practices
+      const associatedPractices = await Promise.all(
+        selectedPractices.map(async (practiceName) => {
+          const practice = await Practice.findOne({ practiceName }) || new Practice({ practiceName });
+          await practice.save();
+          return practice._id;
+        })
+      );
+  
+      newStudent.schoolPractices = associatedPractices;
+  
+      // Save the student to the database
+      const savedStudent = await newStudent.save();
+  
+      res.status(201).json(savedStudent);
+    } catch (error) {
+      console.error('Register student error:', error);
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+  };
+  
 module.exports = registerStudent;
 
 // Student authentication route
