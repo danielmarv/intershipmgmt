@@ -81,6 +81,12 @@ const studentSchema = new mongoose.Schema({
         },
         },
     ],
+    internshipSupervisors: [
+        {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: 'InternshipSupervisor',
+        },
+    ],
 
 });
 
