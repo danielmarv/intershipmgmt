@@ -1,7 +1,7 @@
 {
   "name": "server",
   "version": "1.0.0",
-  "description": "",
+  "description": "Internship Management System",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
