@@ -63,11 +63,6 @@ const studentSchema = new mongoose.Schema({
         required: true,
         },
     },
-    internshipCode: {
-        type: String,
-        required: true,
-        unique: true,
-    },
     markSheet: [
         {
             supervisor: {
