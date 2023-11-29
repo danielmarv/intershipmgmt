@@ -2,25 +2,6 @@ const Student = require('../models/Student');
 const express = require('express');
 const router = express.Router();
 const Practice = require('../models/practice');
-
-
-// Generating the Internshipcode
-const generateUniqueRandomNumericPortion = async () => {
-    const min = 1000;
-    const max = 9999;
-  
-    let isUnique = false;
-    let randomNumericPortion;
-  
-    while (!isUnique) {
-      randomNumericPortion = Math.floor(Math.random() * (max - min + 1)) + min;
-      const existingStudent = await Student.findOne({ internshipCode: randomNumericPortion });
-      isUnique = !existingStudent;
-    }
-  
-    return randomNumericPortion;
-  };
-
   // Register student handler
   const registerStudent = async (req, res) => {
     try {
@@ -39,10 +20,6 @@ const generateUniqueRandomNumericPortion = async () => {
         selectedPractices, // Assuming you receive an array of selected practices from the request
       } = req.body;
   
-      const currentYear = new Date().getFullYear();
-      const randomNumericPortion = generateUniqueRandomNumericPortion();
-      const internshipCode = `${currentYear}/${randomNumericPortion}`;
-  
       // Create the student
       const newStudent = new Student({
         fullName,
@@ -54,15 +31,14 @@ const generateUniqueRandomNumericPortion = async () => {
         schoolCategory,
         moneyPaid,
         studentDetails: {
-          regNo: generateUniqueRegistrationNumber(), // Assuming you have a function for generating unique registration numbers
+          regNo, 
           currentClass: { year: currentClassYear, sem: currentClassSem },
           emailId,
-          phoneNum, // Assuming phoneNum is defined in the request body
+          phoneNum,
         },
         internshipCode,
       });
-  
-      // Associate the student with selected practices
+
       const associatedPractices = await Promise.all(
         selectedPractices.map(async (practiceName) => {
           const practice = await Practice.findOne({ practiceName }) || new Practice({ practiceName });
@@ -73,7 +49,6 @@ const generateUniqueRandomNumericPortion = async () => {
   
       newStudent.schoolPractices = associatedPractices;
   
-      // Save the student to the database
       const savedStudent = await newStudent.save();
   
       res.status(201).json(savedStudent);
