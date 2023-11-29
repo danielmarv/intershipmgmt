@@ -90,3 +90,26 @@ router.post('/student-auth', async (req, res) => {
 
 module.exports = router;
 
+const trackStudent = async (req, res) => {
+  try {
+    // Extract student data from the authentication result
+    const { studentData } = res.locals;
+
+    // Filter out fields with null or undefined values
+    const filteredStudentData = Object.fromEntries(
+      Object.entries(studentData).filter(([_, value]) => value !== null && value !== undefined)
+    );
+
+    res.status(200).json(filteredStudentData);
+  } catch (error) {
+    console.error('Track student error:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
+
+module.exports = {
+  registerStudent,
+  authenticateStudentByRegNo,
+  trackStudent,
+};
+
