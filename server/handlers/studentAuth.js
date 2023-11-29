@@ -61,41 +61,35 @@ const Practice = require('../models/practice');
 module.exports = registerStudent;
 
 // Student authentication route
-router.post('/authenticate', async (req, res) => {
+const authenticateStudentByRegNo = async (regNo) => {
   try {
-    const { internshipCode } = req.body;
-    const student = await Student.findOne({ internshipCode });
+    const student = await Student.findOne({ 'studentDetails.regNo': regNo });
 
     if (!student) {
-      return res.status(404).json({ error: 'Student not found' });
+      return { error: 'Student not found' };
     }
-    if (student.internshipStatus === 'Approved') {
-      // Student is approved, return relevant information
-      return res.status(200).json({
-        studentId: student._id,
-        internshipStatus: student.internshipStatus,
-      });
-    } else if (student.internshipStatus === 'Rejected') {
-      // Student is rejected, return relevant information
-      return res.status(200).json({
-        studentId: student._id,
-        internshipStatus: student.internshipStatus,
-        rejectionReason: student.rejectionReason, // Assuming there's a field for rejection reason
-        // Add other relevant information as needed
-      });
-    } else {
-      // Student is in pending status, return relevant information
-      return res.status(200).json({
-        studentId: student._id,
-        internshipStatus: student.internshipStatus,
-        // Add other relevant information as needed
-      });
-    }
+
+    return {
+      studentId: student._id,
+      
+    };
   } catch (error) {
     console.error('Student authentication error:', error);
-    res.status(500).json({ error: 'Internal Server Error' });
+    return { error: 'Internal Server Error' };
   }
+};
+
+// Example usage in a route
+router.post('/authenticate', async (req, res) => {
+  const { regNo } = req.body;
+  const authenticationResult = await authenticateStudentByRegNo(regNo);
+
+  if (authenticationResult.error) {
+    return res.status(404).json({ error: authenticationResult.error });
+  }
+
+  // Return relevant information without redirection
+  return res.status(200).json(authenticationResult);
 });
 
-module.exports = router;
 
