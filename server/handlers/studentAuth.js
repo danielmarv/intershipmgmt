@@ -69,8 +69,7 @@ const authenticateStudentByRegNo = async (regNo) => {
     }
 
     return {
-      studentId: student._id,
-
+      studentData: student.toObject(),
     };
   } catch (error) {
     console.error('Student authentication error:', error);
@@ -78,8 +77,7 @@ const authenticateStudentByRegNo = async (regNo) => {
   }
 };
 
-// Example usage in a route
-router.post('/authenticate', async (req, res) => {
+router.post('/student-auth', async (req, res) => {
   const { regNo } = req.body;
   const authenticationResult = await authenticateStudentByRegNo(regNo);
 
@@ -89,4 +87,6 @@ router.post('/authenticate', async (req, res) => {
 
   return res.status(200).json(authenticationResult);
 });
+
+module.exports = router;
 
