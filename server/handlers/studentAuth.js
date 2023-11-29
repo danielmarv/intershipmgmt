@@ -17,9 +17,8 @@ const Practice = require('../models/practice');
         currentClassYear,
         currentClassSem,
         emailId,
-        selectedPractices, // Assuming you receive an array of selected practices from the request
+        selectedPractices,
       } = req.body;
-  
       // Create the student
       const newStudent = new Student({
         fullName,
@@ -71,7 +70,7 @@ const authenticateStudentByRegNo = async (regNo) => {
 
     return {
       studentId: student._id,
-      
+
     };
   } catch (error) {
     console.error('Student authentication error:', error);
@@ -88,8 +87,6 @@ router.post('/authenticate', async (req, res) => {
     return res.status(404).json({ error: authenticationResult.error });
   }
 
-  // Return relevant information without redirection
   return res.status(200).json(authenticationResult);
 });
-
 
