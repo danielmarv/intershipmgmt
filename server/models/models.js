@@ -1,15 +1,11 @@
-require('dotenv').config();
-
+const dotenv = require('dotenv');
+dotenv.config();
 const mongoose = require("mongoose");
 
 mongoose.set("debug", true);
 mongoose.Promise = global.Promise;
 
-mongoose.connect(process.env.MONGO_URI, {
-    useCreateIndex: true,
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-});
+mongoose.connect(process.env.MONGO_URI);
 
 const db = mongoose.connection;
 
