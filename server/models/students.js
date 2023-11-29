@@ -70,21 +70,19 @@ const studentSchema = new mongoose.Schema({
     },
     markSheet: [
         {
-        supervisor: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'InternshipSupervisor',
-            required: true,
-        },
-        marks: {
-            type: Number,
-            required: true,
-        },
-        },
-    ],
-    internshipSupervisors: [
-        {
-          type: mongoose.Schema.Types.ObjectId,
-          ref: 'InternshipSupervisor',
+            supervisor: {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: 'InternshipSupervisor',
+                required: true,
+            },
+            marks: {
+                type: Number,
+                required: true,
+            },
+            supervisionDate: {
+                type: Date,
+                required: true,
+            },
         },
     ],
 
