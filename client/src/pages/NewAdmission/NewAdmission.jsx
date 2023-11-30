@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {studentPracticeUrl, registerUrl} from '../../api/urls';
+import {studentPracticeUrl, registerStudent} from '../../api/urls';
 function Dropdown({ practices, value, onChange }) {
   return (
     <select
@@ -71,7 +71,7 @@ function NewAdmission() {
   
     try {
   
-      const response = await fetch(registerUrl, {
+      const response = await fetch(registerStudent, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -92,7 +92,7 @@ function NewAdmission() {
   
 
   useEffect(() => {
-    fetch(studentPracticeUrl)
+    fetch(getAllPractices)
       .then((response) => response.json())
       .then((data) => setPractices(data))
       .catch((error) => console.error('Error fetching practices:', error));
