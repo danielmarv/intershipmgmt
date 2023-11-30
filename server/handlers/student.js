@@ -2,9 +2,10 @@ const express = require('express');
 const router = express.Router();
 const middleware = require('../middlewares/auth')
 const db = require("../models/models");
-exports.getPractice =  async () => {
+const getPractice =  async () => {
   try {
     const practices = await db.Practice.find();
+    console.log(practices);
     return practices;
   } catch (error) {
     console.error('Get all practices error:', error);
@@ -12,7 +13,7 @@ exports.getPractice =  async () => {
   }
 };
   // Register student handler
-  exports.registerStudent = async (req, res) => {
+const registerStudent = async (req, res) => {
     try {
       const {
         fullName,
@@ -54,7 +55,7 @@ exports.getPractice =  async () => {
   
 
 // Student authentication route
-exports.studentAuth =  async (req, res, next) => {
+const studentAuth = async (req, res, next) => {
   try {
     const student = await db.Student.findOne({ regNo: req.body.studentDetails.regNo });
 
@@ -100,5 +101,10 @@ router.get('/track/:studentId', middleware.fetchStudentData, async (req, res) =>
   }
 });
 
-module.exports = router;
+module.exports = {
+  router,
+  registerStudent,
+  studentAuth,
+  getPractice
+};
 
