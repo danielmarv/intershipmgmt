@@ -27,7 +27,7 @@ function NewAdmission() {
     distanceFromBugemaCampuses: {
       kilometers: 0,
     },
-    schoolPractices: selectedValue,
+    schoolPractices: '',
     moneyPaid: 0,
     studentDetails: {
       regNo: '',
@@ -46,7 +46,7 @@ function NewAdmission() {
 
     if (name === 'schoolPractices') {
       if (value === 'all') {
-        updatedFormData[name] = [practice1._id, practice2._id];
+        updatedFormData[name] = practices.map(practice => practice._id);
       } else {
         updatedFormData[name] = [value];
       }
@@ -92,11 +92,17 @@ function NewAdmission() {
   
 
   useEffect(() => {
-    fetch(getAllPractices)
-      .then((response) => response.json())
+    getAllPractices()
       .then((data) => setPractices(data))
       .catch((error) => console.error('Error fetching practices:', error));
   }, []);
+
+  const handleDropdownChange = (selectedValue) => {
+    setFormData({
+      ...formData,
+      schoolPractices: selectedValue,
+    });
+  };
 
   return (
     <form onSubmit={handleSubmit}>
