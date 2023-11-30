@@ -245,9 +245,26 @@
 
 // export default NewAdmission;
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+
+function Dropdown({ practices, value, onChange }) {
+  return (
+    <select
+      value={value}
+      onChange={(e) => onChange(e.target.value)}
+    >
+      {practices.map((practice) => (
+        <option key={practice._id} value={practice._id}>
+          {practice.practiceName}
+        </option>
+      ))}
+      <option value="all">Both</option>
+    </select>
+  );
+}
 
 function NewAdmission() {
+  const [practices, setPractices] = useState([]);
   const [formData, setFormData] = useState({
     fullName: '',
     campusName: '',
@@ -273,6 +290,17 @@ function NewAdmission() {
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     const updatedFormData = { ...formData };
+
+    if (name === 'schoolPractices') {
+      if (value === 'all') {
+        updatedFormData[name] = [practice1._id, practice2._id];
+      } else {
+        updatedFormData[name] = [value];
+      }
+    } else {
+      setNestedFormData(updatedFormData, name, value);
+    };
+
     setNestedFormData(updatedFormData, name, value);
     setFormData({
       ...updatedFormData,
@@ -290,6 +318,14 @@ function NewAdmission() {
     console.log('Form submitted:', formData);
     // Handle form submission, you can send the formData to your backend or perform any other actions
   };
+
+  useEffect(() => {
+    // Replace 'your-api-endpoint' with your actual API endpoint
+    fetch('your-api-endpoint')
+      .then((response) => response.json())
+      .then((data) => setPractices(data))
+      .catch((error) => console.error('Error fetching practices:', error));
+  }, []);
 
   return (
     <form onSubmit={handleSubmit}>
@@ -457,17 +493,17 @@ function NewAdmission() {
 
             <div className="col-span-6">
               <label
-                htmlFor="addressStreet"
+                htmlFor="schoolPractices"
                 className="block text-sm font-medium text-gray-600"
               >
-                Street address
+                School Practices
               </label>
-              <input
-                type="text"
-                name="addressStreet"
-                id="addressStreet"
-                className="mt-2 block w-full rounded border-gray-300 focus:border-blue-700 focus:ring-blue-700 sm:text-sm"
-              />
+                <Dropdown
+                  practices={practices}
+                  value={formData.schoolPractices}
+                  onChange={handleDropdownChange}
+                  className="mt-2 block w-full rounded border-gray-300 focus:border-blue-700 focus:ring-blue-700 sm:text-sm"
+                />
             </div>
 
             <div className="col-span-6 sm:col-span-6 lg:col-span-2">
