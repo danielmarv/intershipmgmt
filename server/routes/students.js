@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const studentHandlers = require('../handlers/studentAuth');
+const handle = require("../handlers/student");
 
-router.post('/register', studentHandlers.registerStudent);
-router.get('/track/:studentId', studentHandlers.trackStudent);
-router.post('/student-auth', studentHandlers.authenticateStudentByRegNo);
+router.post("/auth", handle.studentAuth);
+router.post("/student-register", handle.registerStudent);
+router.get("/practice", handle.getPractice);
 
 module.exports = router;
