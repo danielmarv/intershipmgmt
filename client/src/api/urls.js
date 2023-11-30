@@ -4,7 +4,7 @@ const HOST = 'http://localhost:3001';
 
 export const registerStudent = async (studentData) => {
   try {
-    const response = await axios.post(`${HOST}/student/register-student`, studentData);
+    const response = await axios.post(`${HOST}/students/register-student`, studentData);
     return response.data;
   } catch (error) {
     throw new Error(error.response.data.error || 'Error registering student');
@@ -13,7 +13,7 @@ export const registerStudent = async (studentData) => {
 
 export const authenticateStudent = async (regNo) => {
   try {
-    const response = await axios.post(`${HOST}/student-auth`, { regNo });
+    const response = await axios.post(`${HOST}/students/student-auth`, { regNo });
     return response.data.studentData;
   } catch (error) {
     throw new Error(error.response.data.error || 'Authentication error');
@@ -22,7 +22,7 @@ export const authenticateStudent = async (regNo) => {
 
 export const getAllPractices = async () => {
     try {
-      const response = await axios.get(`${HOST}/student/student-practice`);
+      const response = await axios.get(`${HOST}/students/student-practice`);
       return response.data;
     } catch (error) {
       throw new Error(error.response.data.error || 'Error getting all practices');
