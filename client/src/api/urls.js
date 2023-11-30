@@ -22,7 +22,8 @@ export const authenticateStudent = async (regNo) => {
 
 export const getAllPractices = async () => {
     try {
-      const response = await axios.get(`${HOST}/students/student-practice`);
+      const response = await axios.get(`${HOST}/students/practice`);
+      condole.log(response.data);
       return response.data;
     } catch (error) {
       throw new Error(error.response.data.error || 'Error getting all practices');
