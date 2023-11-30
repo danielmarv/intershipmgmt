@@ -3,27 +3,29 @@ const express = require('express');
 const router = express.Router();
 const Practice = require('../models/practice');
 
-
-// Generating the Internshipcode
-const generateUniqueRandomNumericPortion = async () => {
-    const min = 1000;
-    const max = 9999;
-  
-    let isUnique = false;
-    let randomNumericPortion;
-  
-    while (!isUnique) {
-      randomNumericPortion = Math.floor(Math.random() * (max - min + 1)) + min;
-      const existingStudent = await Student.findOne({ internshipCode: randomNumericPortion });
-      isUnique = !existingStudent;
-    }
-  
-    return randomNumericPortion;
-  };
-
+const getAllPractices = async () => {
+  try {
+    const practices = await Practice.find();
+    return practices;
+  } catch (error) {
+    console.error('Get all practices error:', error);
+    throw new Error('Internal Server Error');
+  }
+};
   // Register student handler
   const registerStudent = async (req, res) => {
     try {
+      const allPractices = await getAllPractices();
+
+      // Validate selected practices
+      const invalidPractices = selectedPractices.filter(practice => !allPractices.find(p => p.practiceName === practice));
+      if (invalidPractices.length > 0) {
+        return res.status(400).json({ error: `Invalid practices: ${invalidPractices.join(', ')}` });
+      }
+
+      // Check if both practices are selected
+      const isBothPracticesSelected = selectedPractices.length === allPractices.length;
+
       const {
         fullName,
         schoolName,
@@ -36,13 +38,8 @@ const generateUniqueRandomNumericPortion = async () => {
         currentClassYear,
         currentClassSem,
         emailId,
-        selectedPractices, // Assuming you receive an array of selected practices from the request
+        selectedPractices,
       } = req.body;
-  
-      const currentYear = new Date().getFullYear();
-      const randomNumericPortion = generateUniqueRandomNumericPortion();
-      const internshipCode = `${currentYear}/${randomNumericPortion}`;
-  
       // Create the student
       const newStudent = new Student({
         fullName,
@@ -54,26 +51,22 @@ const generateUniqueRandomNumericPortion = async () => {
         schoolCategory,
         moneyPaid,
         studentDetails: {
-          regNo: generateUniqueRegistrationNumber(), // Assuming you have a function for generating unique registration numbers
+          regNo, 
           currentClass: { year: currentClassYear, sem: currentClassSem },
           emailId,
-          phoneNum, // Assuming phoneNum is defined in the request body
+          phoneNum,
         },
-        internshipCode,
       });
+
+      if (isBothPracticesSelected) {
+        // If both practices are selected, associate with all practices
+        newStudent.schoolPractices = allPractices.map(practice => practice._id);
+      } else {
+        // Otherwise, associate with selected practices
+        const associatedPractices = await createPractices(selectedPractices);
+        newStudent.schoolPractices = associatedPractices;
+      }
   
-      // Associate the student with selected practices
-      const associatedPractices = await Promise.all(
-        selectedPractices.map(async (practiceName) => {
-          const practice = await Practice.findOne({ practiceName }) || new Practice({ practiceName });
-          await practice.save();
-          return practice._id;
-        })
-      );
-  
-      newStudent.schoolPractices = associatedPractices;
-  
-      // Save the student to the database
       const savedStudent = await newStudent.save();
   
       res.status(201).json(savedStudent);
@@ -86,41 +79,56 @@ const generateUniqueRandomNumericPortion = async () => {
 module.exports = registerStudent;
 
 // Student authentication route
-router.post('/authenticate', async (req, res) => {
+const authenticateStudentByRegNo = async (regNo) => {
   try {
-    const { internshipCode } = req.body;
-    const student = await Student.findOne({ internshipCode });
+    const student = await Student.findOne({ 'studentDetails.regNo': regNo });
 
     if (!student) {
-      return res.status(404).json({ error: 'Student not found' });
+      return { error: 'Student not found' };
     }
-    if (student.internshipStatus === 'Approved') {
-      // Student is approved, return relevant information
-      return res.status(200).json({
-        studentId: student._id,
-        internshipStatus: student.internshipStatus,
-      });
-    } else if (student.internshipStatus === 'Rejected') {
-      // Student is rejected, return relevant information
-      return res.status(200).json({
-        studentId: student._id,
-        internshipStatus: student.internshipStatus,
-        rejectionReason: student.rejectionReason, // Assuming there's a field for rejection reason
-        // Add other relevant information as needed
-      });
-    } else {
-      // Student is in pending status, return relevant information
-      return res.status(200).json({
-        studentId: student._id,
-        internshipStatus: student.internshipStatus,
-        // Add other relevant information as needed
-      });
-    }
+
+    return {
+      studentData: student.toObject(),
+    };
   } catch (error) {
     console.error('Student authentication error:', error);
-    res.status(500).json({ error: 'Internal Server Error' });
+    return { error: 'Internal Server Error' };
   }
+};
+
+router.post('/student-auth', async (req, res) => {
+  const { regNo } = req.body;
+  const authenticationResult = await authenticateStudentByRegNo(regNo);
+
+  if (authenticationResult.error) {
+    return res.status(404).json({ error: authenticationResult.error });
+  }
+
+  return res.status(200).json(authenticationResult);
 });
 
 module.exports = router;
+
+const trackStudent = async (req, res) => {
+  try {
+    // Extract student data from the authentication result
+    const { studentData } = res.locals;
+
+    // Filter out fields with null or undefined values
+    const filteredStudentData = Object.fromEntries(
+      Object.entries(studentData).filter(([_, value]) => value !== null && value !== undefined)
+    );
+
+    res.status(200).json(filteredStudentData);
+  } catch (error) {
+    console.error('Track student error:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
+
+module.exports = {
+  registerStudent,
+  authenticateStudentByRegNo,
+  trackStudent,
+};
 

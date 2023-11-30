@@ -15,6 +15,10 @@ const markSheetSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
+  supervisionDate: {
+    type: Date,
+    required: true,
+  },
 });
 
 const MarkSheet = mongoose.model('MarkSheet', markSheetSchema);
