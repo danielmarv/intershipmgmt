@@ -440,10 +440,10 @@ function NewAdmission() {
 
             <div className="col-span-6 sm:col-span-3 lg:col-span-2">
               <label
-                htmlFor="studentBloodGroup"
+                htmlFor="studentDetails.currentClass.sem"
                 className="block text-sm font-medium text-gray-600"
               >
-                Blood Group
+                Current Class Semester
               </label>
               <input
                 type="number"
@@ -458,10 +458,10 @@ function NewAdmission() {
 
             <div className="col-span-6 sm:col-span-3">
               <label
-                htmlFor="fatherFullName"
+                htmlFor="studentDetails.emailId"
                 className="block text-sm font-medium text-gray-600"
               >
-                Father's full name
+                Email ID
               </label>
               <input
                 type="email"
@@ -475,10 +475,10 @@ function NewAdmission() {
 
             <div className="col-span-6 sm:col-span-3">
               <label
-                htmlFor="motherFullName"
+                htmlFor="studentDetails.phoneNum"
                 className="block text-sm font-medium text-gray-600"
               >
-                Mother's full name
+                Phone Number
               </label>
               <input
                 type="tel"
@@ -508,63 +508,44 @@ function NewAdmission() {
 
             <div className="col-span-6 sm:col-span-6 lg:col-span-2">
               <label
-                htmlFor="addressCity"
+                htmlFor="moneyPaid"
                 className="block text-sm font-medium text-gray-600"
               >
-                City
+                Money Paid
               </label>
               <input
-                type="text"
-                name="addressCity"
-                id="addressCity"
-                className="mt-2 block w-full rounded border-gray-300 focus:border-blue-700 focus:ring-blue-700 sm:text-sm"
-              />
-            </div>
-
-            <div className="col-span-6 sm:col-span-3 lg:col-span-2">
-              <label
-                htmlFor="addressState"
-                className="block text-sm font-medium text-gray-600"
-              >
-                State / Province
-              </label>
-              <input
+                type="number"
+                id="moneyPaid"
+                name="moneyPaid"
+                value={formData.moneyPaid}
+                onChange={handleInputChange}
                 required
-                type="text"
-                name="addressState"
-                id="addressState"
                 className="mt-2 block w-full rounded border-gray-300 focus:border-blue-700 focus:ring-blue-700 sm:text-sm"
               />
             </div>
 
             <div className="col-span-6 sm:col-span-3 lg:col-span-2">
               <label
-                htmlFor="addressZipCode"
+                htmlFor="studentDetails.regNo"
                 className="block text-sm font-medium text-gray-600"
               >
-                ZIP / Postal code
+                Registration Number
               </label>
               <input
                 type="text"
-                name="addressZipCode"
-                id="addressZipCode"
+                id="studentDetails.regNo"
+                name="studentDetails.regNo"
+                value={formData.studentDetails.regNo}
+                onChange={handleInputChange}
+                required
                 className="mt-2 block w-full rounded border-gray-300 focus:border-blue-700 focus:ring-blue-700 sm:text-sm"
               />
             </div>
+
           </div>
         </div>
       </div>
-      <div>
-        <label htmlFor="fullName">Full Name:</label>
-        <input
-          type="text"
-          id="fullName"
-          name="fullName"
-          value={formData.fullName}
-          onChange={handleInputChange}
-          required
-        />
-      </div>
+
 
       <div>
         <label htmlFor="campusName">Campus Name:</label>
