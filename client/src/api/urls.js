@@ -5,6 +5,7 @@ const generateFrontendUrl = (endpoint, params = '') => {
   };
   
   // Example usage
-  const registerUrl = generateFrontendUrl('register');
-  const trackUrl = generateFrontendUrl('track', ':studentId');
-  const studentAuthUrl = generateFrontendUrl('student-auth');
+const registerUrl = generateFrontendUrl('register');
+const trackUrl = generateFrontendUrl('track', ':studentId');
+const studentAuthUrl = generateFrontendUrl('student-auth');
+const studentPracticeUrl = generateFrontendUrl('student-practice');

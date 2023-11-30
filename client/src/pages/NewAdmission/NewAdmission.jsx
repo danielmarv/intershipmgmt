@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-
+import {studentPracticeUrl} from '../../api/urls';
 function Dropdown({ practices, value, onChange }) {
   return (
     <select
@@ -73,7 +73,7 @@ function NewAdmission() {
   };
 
   useEffect(() => {
-    fetch('your-api-endpoint')
+    fetch(studentPracticeUrl)
       .then((response) => response.json())
       .then((data) => setPractices(data))
       .catch((error) => console.error('Error fetching practices:', error));
