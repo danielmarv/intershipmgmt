@@ -9,7 +9,9 @@ const studentRoutes = require('./routes/students')
 dotenv.config();
 
 const PORT = process.env.PORT || 3001;
-app.use(cors());
+app.use(cors({
+  origin: '*',
+}));
 app.use(bodyParser.json({ limit: "50mb" })); // accept data with 50mb limit
 
 
