@@ -27,12 +27,9 @@ const studentSchema = new mongoose.Schema({
         required: false,
         },
     },
-    schoolPractices: [
-        {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Practice',
-        },
-    ],
+    schoolPractices: {
+        type: String,
+    },
     moneyPaid: {
         type: Number,
         required: true,

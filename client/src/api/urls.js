@@ -2,9 +2,9 @@ import axios from 'axios';
 
 const HOST = 'http://localhost:3001';
 
-export const registerStudent = async (studentData) => {
+export const registerStudent = async (formData) => {
   try {
-    const response = await axios.post(`${HOST}/students/register-student`, studentData);
+    const response = await axios.post(`${HOST}/students/register`, formData);
     return response.data;
   } catch (error) {
     throw new Error(error.response.data.error || 'Error registering student');
