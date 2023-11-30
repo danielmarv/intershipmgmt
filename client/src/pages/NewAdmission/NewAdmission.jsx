@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {studentPracticeUrl} from '../../api/urls';
+import {studentPracticeUrl, registerUrl} from '../../api/urls';
 function Dropdown({ practices, value, onChange }) {
   return (
     <select
@@ -66,11 +66,30 @@ function NewAdmission() {
     keysArray.reduce((acc, key) => (acc[key] = acc[key] || {}), data)[lastKey] = value;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Form submitted:', formData);
-    
+  
+    try {
+  
+      const response = await fetch(registerUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+  
+      if (response.ok) {
+        console.log('Form submitted successfully!');
+        // You can perform additional actions here if needed
+      } else {
+        console.error('Error submitting form:', response.statusText);
+      }
+    } catch (error) {
+      console.error('Error submitting form:', error);
+    }
   };
+  
 
   useEffect(() => {
     fetch(studentPracticeUrl)
