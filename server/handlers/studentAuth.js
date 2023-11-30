@@ -2,9 +2,30 @@ const Student = require('../models/Student');
 const express = require('express');
 const router = express.Router();
 const Practice = require('../models/practice');
+
+const getAllPractices = async () => {
+  try {
+    const practices = await Practice.find();
+    return practices;
+  } catch (error) {
+    console.error('Get all practices error:', error);
+    throw new Error('Internal Server Error');
+  }
+};
   // Register student handler
   const registerStudent = async (req, res) => {
     try {
+      const allPractices = await getAllPractices();
+
+      // Validate selected practices
+      const invalidPractices = selectedPractices.filter(practice => !allPractices.find(p => p.practiceName === practice));
+      if (invalidPractices.length > 0) {
+        return res.status(400).json({ error: `Invalid practices: ${invalidPractices.join(', ')}` });
+      }
+
+      // Check if both practices are selected
+      const isBothPracticesSelected = selectedPractices.length === allPractices.length;
+
       const {
         fullName,
         schoolName,
@@ -35,18 +56,16 @@ const Practice = require('../models/practice');
           emailId,
           phoneNum,
         },
-        internshipCode,
       });
 
-      const associatedPractices = await Promise.all(
-        selectedPractices.map(async (practiceName) => {
-          const practice = await Practice.findOne({ practiceName }) || new Practice({ practiceName });
-          await practice.save();
-          return practice._id;
-        })
-      );
-  
-      newStudent.schoolPractices = associatedPractices;
+      if (isBothPracticesSelected) {
+        // If both practices are selected, associate with all practices
+        newStudent.schoolPractices = allPractices.map(practice => practice._id);
+      } else {
+        // Otherwise, associate with selected practices
+        const associatedPractices = await createPractices(selectedPractices);
+        newStudent.schoolPractices = associatedPractices;
+      }
   
       const savedStudent = await newStudent.save();
   
