@@ -130,5 +130,6 @@ module.exports = {
   registerStudent,
   authenticateStudentByRegNo,
   trackStudent,
+  getAllPractices,
 };
 
