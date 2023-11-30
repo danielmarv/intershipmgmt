@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {studentPracticeUrl, registerStudent} from '../../api/urls';
+import {getAllPractices, registerStudent} from '../../api/urls';
 function Dropdown({ practices, value, onChange }) {
   return (
     <select
