@@ -13,6 +13,17 @@ exports.getPractice =  async () => {
   // Register student handler
   exports.registerStudent = async (req, res) => {
     try {
+      const {
+        fullName,
+        campusName,
+        schoolName,
+        townName,
+        districtName,
+        distanceFromBugemaCampuses,
+        schoolCategory,
+        moneyPaid,
+        studentDetails: { regNo, currentClassYear, currentClassSem, emailId, phoneNum },
+      } = req.body;
       // Create the student
       const newStudent = await db.Student.create({
         fullName,
