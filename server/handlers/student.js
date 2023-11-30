@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const middleware = require('../middlewares/auth')
 const db = require("../models/models");
 exports.getPractice =  async () => {
   try {
@@ -82,9 +83,9 @@ exports.studentAuth =  async (req, res, next) => {
 // });
 
 
-router.get('/track/:studentId', async (req, res) => {
+router.get('/track/:studentId', middleware.fetchStudentData, async (req, res) => {
   try {
-    // Extract student data from the authentication result
+    // Extract student data from the middleware
     const { studentData } = res.locals;
 
     // Filter out fields with null or undefined values
