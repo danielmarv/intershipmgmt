@@ -1,6 +1,6 @@
 module.exports = {
     ...require("./student"),
-    ...require("./Admin"),
+    // ...require("./Admin"),
 };
 
 module.exports.notFound = (req, res, next) => {

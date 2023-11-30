@@ -1,18 +1,15 @@
 const express = require('express');
 const router = express.Router();
 const db = require("../models/models");
-const Student = require('../models/students');
-const Practice = require('../models/practice');
-
-router.get('/student-practice', async () => {
+exports.getPractice =  async () => {
   try {
-    const practices = await Practice.find();
+    const practices = await db.Practice.find();
     return practices;
   } catch (error) {
     console.error('Get all practices error:', error);
     throw new Error('Internal Server Error');
   }
-});
+};
   // Register student handler
   exports.registerStudent = async (req, res) => {
     try {
