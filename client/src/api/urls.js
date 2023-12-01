@@ -1,10 +1,10 @@
 import axios from 'axios';
 
-const HOST = 'http://localhost:3001';
+const HOST = 'http://localhost:3001/api';
 
 export const registerStudent = async (formData) => {
   try {
-    const response = await axios.post(`${HOST}/students/register`, formData);
+    const response = await axios.post(`${HOST}/student/register-student`, formData);
     return response.data;
   } catch (error) {
     throw new Error(error.response.data.error || 'Error registering student');
@@ -22,7 +22,7 @@ export const authenticateStudent = async (regNo) => {
 
 export const getAllPractices = async () => {
     try {
-      const response = await axios.get(`${HOST}/students/practice`);
+      const response = await axios.get(`${HOST}/student/practice`);
       condole.log(response.data);
       return response.data;
     } catch (error) {

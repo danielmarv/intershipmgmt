@@ -44,9 +44,7 @@ const registerStudent = async (req, res) => {
         },
       });
   
-      const savedStudent = await newStudent.save();
-  
-      res.status(201).json(savedStudent);
+      res.status(201).json(newStudent);
     } catch (error) {
       console.error('Register student error:', error);
       res.status(500).json({ error: 'Internal Server Error' });
