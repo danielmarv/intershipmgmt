@@ -1,6 +1,6 @@
-
+'use client';
 import React from 'react';
-import SidebarItems from './SidebarItems';
+import SidebarItem from './SidebarItem';
 
 const Sidebar = () => {
     const sidebarItems = [
@@ -15,7 +15,7 @@ const Sidebar = () => {
                 <h1 className="text-2xl font-bold">Admin Dashboard</h1>
             </div>
             <div className="flex-grow">
-                <SidebarItems items={sidebarItems} />
+                <SidebarItem items={sidebarItems} />
             </div>
         </div>
     );

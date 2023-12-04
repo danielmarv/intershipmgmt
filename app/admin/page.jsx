@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Link, Redirect } from 'react-router-dom';
+// import Link from 'next/link';
 import AdminLayout from './layout.jsx';
 
 const AdminDashboard = () => {
@@ -9,7 +9,7 @@ const AdminDashboard = () => {
 
     if (!isAuthenticated) {
         // Redirect to sign-in page if not authenticated
-        return <Redirect to="/signin" />;
+        // return <Redirect to="/signin" />;
     }
 
     return (

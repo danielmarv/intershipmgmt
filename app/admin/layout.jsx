@@ -1,14 +1,14 @@
 
 import React from 'react';
-import { useRouter } from 'next/router';
+// import { useRouter } from 'next/navigation';
 import Sidebar from '@components/Admin/Sidebar/Sidebar';
 
 const AdminLayout = ({ children }) => {
-  const router = useRouter();
+  // const router = useRouter();
 
   const isLoggedIn = true;
   if (!isLoggedIn) {
-    router.push('/signin');
+    // router.push('/signin');
     return null;
   }
 
