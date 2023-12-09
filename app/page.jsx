@@ -58,7 +58,7 @@ const CreateStudent = () => {
 
     return (
         <Form 
-            type="Create"
+            type="Register"
             formData={formData}
             setFormData={setFormData}
             submitting={submitting}
