@@ -2,21 +2,6 @@
 import React from 'react';
 import Link from 'next/link';
 
-const Dropdown = ({  value, onChange }) => {
-    return (
-      <select
-        value={value}
-        onChange={(e) => onChange(e.target.value)}
-        className="mt-2 px-2 py-2 text-lg w-full rounded border-gray-300 focus:border-blue-700 focus:ring-blue-700 "
-      >
-        <option value="Practice 1">Practice 1</option>
-        <option value="Practice 2">Practice 2</option>
-        <option value="Both">Both</option>
-      </select>
-    );
-  }
-
-
 const  NewAdmission = ({type, formData, setFormData, submitting,  handleSubmit, handleChange}) => {
 
   return (
@@ -58,6 +43,17 @@ const  NewAdmission = ({type, formData, setFormData, submitting,  handleSubmit, 
                 required
                 className="mt-2 px-2 py-2  w-full rounded border-gray-300 focus:border-blue-700 focus:ring-blue-700 "
               />
+              <select
+                  value={formData.campusName}
+                  onChange={(e) => setFormData({ ...formData,
+                    campusName: e.target.value })}
+                  className="mt-2 px-2 py-2 text-lg w-full rounded border-gray-300 focus:border-blue-700 focus:ring-blue-700 "
+                >
+                  <option value="Practice 1">Main Campus</option>
+                  <option value="Practice 2">Kampala Campus</option>
+                  <option value="Both">Arua Campus</option>
+                  
+                </select>
             </div>
 </div>   
 <div className="grid grid-cols-6 gap-6 p-2"> 
