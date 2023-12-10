@@ -19,8 +19,8 @@ const  Sidebar = () => {
     <div className="sticky top-0 flex h-screen flex-col justify-between border-r border-gray-200 bg-white px-1 py-5 xl:py-12 xl:px-1">
       <div className="ie-logo px-1 py-0 text-center xl:text-left">
         <div className="text-xl font-medium text-gray-900 xl:px-3 xl:text-2xl">
-          <span className="block xl:hidden">ST</span>
-          <span className="hidden xl:block">Student Registration</span>
+          <span className="block xl:hidden">BU</span>
+          <span className="hidden xl:block">Bugema University</span>
         </div>
       </div>
       <div className="ie-menu mt-8 h-full">
@@ -49,7 +49,7 @@ const  Sidebar = () => {
                     </span>
                   </div>
             </Link>
-            <Link href="/student-register" className="group">
+            {/* <Link href="/student-register" className="group">
                   <div
                     className={`flex items-center gap-3 rounded-md px-3 py-2 transition-all ${
                       isActive('/student-register') ? "bg-gray-100" : "group-hover:bg-gray-50"
@@ -72,10 +72,10 @@ const  Sidebar = () => {
                       Registration
                     </span>
                   </div>
-            </Link>
+            </Link> */}
         </div>
       </div>
-      <div className="ie-user hidden items-center gap-2 px-3 xl:flex">
+      {/* <div className="ie-user hidden items-center gap-2 px-3 xl:flex">
         <UserCircleIcon className="h-12 stroke-gray-700 stroke-1 group-hover:stroke-blue-700" />
         <div className="ie-userDetails">
           <div className="flex justify-between gap-2">
@@ -91,7 +91,7 @@ const  Sidebar = () => {
             Internship Registration
           </span>
         </div>
-      </div>
+      </div> */}
       <div className="ie-userMobile p-1 xl:hidden">
         <span className="flex flex-col items-center rounded-md bg-gray-50 px-3 py-2">
           <ArrowLeftOnRectangleIcon className="h-5 stroke-gray-700 stroke-2 group-hover:stroke-red-700" />
