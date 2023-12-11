@@ -74,6 +74,7 @@ const  Sidebar = () => {
                     </span>
                   </div>
             </Link> */}
+            <SidebarItem href="/student-register" icon={<UsersIcon className="h-5 stroke-2" />} label="Registration" />
         </div>
       </div>
       {/* <div className="ie-user hidden items-center gap-2 px-3 xl:flex">
