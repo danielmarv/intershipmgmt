@@ -41,6 +41,7 @@ const  NewAdmission = ({type, formData, setFormData, submitting,  handleSubmit, 
                     campusName: e.target.value })}
                   className="mt-2 px-2 py-2 text-lg w-full rounded border-gray-300 focus:border-blue-700 focus:ring-blue-700 "
                 >
+                  <option value="">Select Campus ....</option>
                   <option value="Main">Main Campus</option>
                   <option value="Kampala">Kampala Campus</option>
                   <option value="Arua">Arua Campus</option>
