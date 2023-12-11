@@ -1,5 +1,5 @@
 import axios from "axios";
-import Button from "@components/Admin/auth/Button";
+import Button from "@components/Admin/button";
 import Input from "@components/Admin/inputs";
 import { useCallback, useEffect, useState } from "react";
 import { 
