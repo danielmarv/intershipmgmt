@@ -26,55 +26,8 @@ const  Sidebar = () => {
       </div>
       <div className="ie-menu mt-8 h-full">
         <div className="flex flex-col items-center gap-3 p-1 xl:items-stretch xl:px-3">
-            <Link href="/" className="group">
-                  <div
-                    className={`flex items-center gap-3 rounded-md px-3 py-2 transition-all ${
-                      isActive('/') ? "bg-gray-100" : "group-hover:bg-gray-50"
-                    }`}
-                  >
-                    <HomeIcon
-                      className={`h-5 stroke-2 ${
-                        isActive
-                          ? "stroke-blue-700"
-                          : "stroke-gray-500 group-hover:stroke-blue-700"
-                      }`}
-                    />
-                    <span
-                      className={`hidden text-base font-semibold xl:block ${
-                        isActive('/') 
-                          ? "text-gray-900"
-                          : "text-gray-500 group-hover:text-gray-900"
-                      }`}
-                    >
-                      Home
-                    </span>
-                  </div>
-            </Link>
-            <Link href="/student-register" className="group">
-                  <div
-                    className={`flex items-center gap-3 rounded-md px-3 py-2 transition-all ${
-                      isActive('/student-register') ? "bg-gray-100" : "group-hover:bg-gray-50"
-                    }`}
-                  >
-                    <UsersIcon
-                      className={`h-5 stroke-2 ${
-                        isActive('/student-register') 
-                          ? "stroke-blue-700"
-                          : "stroke-gray-500 group-hover:stroke-blue-700"
-                      }`}
-                    />
-                    <span
-                      className={`hidden text-base font-semibold xl:block ${
-                        isActive('/student-register') 
-                          ? "text-gray-900"
-                          : "text-gray-500 group-hover:text-gray-900"
-                      }`}
-                    >
-                      Registration
-                    </span>
-                  </div>
-            </Link>
             <SidebarItem label='Home' Icon={UsersIcon} navPath='/'/>
+            <SidebarItem label='Registration' Icon={UserPlusIcon} navPath='/student-register'/>
         </div>
       </div>
       {/* <div className="ie-user hidden items-center gap-2 px-3 xl:flex">
