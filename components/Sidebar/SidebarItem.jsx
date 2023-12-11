@@ -1,29 +1,80 @@
-// SidebarItem.js
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-
-const SidebarItem = ({ href, icon, label, isAuthenticated, isAdmin }) => {
+export const SidebarIconItem = ({ IconComponent, navPath }) => {
   const router = useRouter();
-  const isActive = router.pathname === href;
-
-  // Check if the item should be visible based on authentication and admin status
-  const isVisible = isAuthenticated && (isAdmin ? true : !href.startsWith('/admin'));
-
-  // Render null if the item should not be visible
-  if (!isVisible) {
-    return null;
-  }
+  // get current route
+  const currentRoute = router.pathname;
+  // check if current route contains navPath
+  const isCurrentRoute = currentRoute.includes(navPath);
 
   return (
-    <Link href={href} passHref>
-      <a className={`group flex items-center gap-3 rounded-md px-3 py-2 transition-all ${isActive ? 'bg-gray-100' : 'group-hover:bg-gray-50'}`}>
-        {icon}
-        <span className={`hidden text-base font-semibold xl:block ${isActive ? 'text-gray-900' : 'text-gray-500 group-hover:text-gray-900'}`}>
-          {label}
-        </span>
+    <Link href={navPath}>
+      <a
+        className={`relative flex items-center p-4 rounded cursor-pointer ${
+          isCurrentRoute ? 'bg-light-blue' : ''
+        } hover:bg-gray-200`}>
+        {isCurrentRoute && (
+          <span className='bg-blue-600 w-1 h-1/2 mr-2 absolute rounded-xl -left-2'></span>
+        )}
+        <IconComponent fill={isCurrentRoute ? '#145FFF' : '#6F87A1'} />
       </a>
     </Link>
   );
 };
 
-export default SidebarItem;
+const SideBarItem = ({ Icon, label, dropdown, navPath, children, toggleMethod, toggleState }) => {
+  const router = useRouter();
+  // get current route
+  const currentRoute = router.pathname;
+  // check if current route contains navPath
+  const isCurrentRoute = currentRoute.includes(navPath);
+
+  return (
+    <div
+      className={`cursor-pointer ${toggleState && 'bg-sidebar-blue rounded'}`}
+      role='button'
+      tabIndex={0}
+      onClick={dropdown && toggleMethod}>
+      <Link href={navPath || '#'}>
+        <div className={`flex items-center justify-between w-full h-12 hover:cursor-pointer mt-2`}>
+          <div className={`flex items-center w-full`}>
+            <div
+              className={`w-1 h-5 mr-1 rounded-3xl ${
+                isCurrentRoute ? 'bg-blue-600' : 'bg-transparent'
+              }`}
+            />
+            <div
+              className={`flex items-center py-3 px-4 w-full ${
+                isCurrentRoute && 'bg-primary-50 rounded'
+              }`}>
+              <div
+                className={`w-8 h-8 rounded-full flex items-center justify-center mr-4 ${
+                  isCurrentRoute && 'text-blue-600'
+                }`}>
+                <Icon fill={isCurrentRoute ? '#145FFF' : '#6F87A1'} />
+              </div>
+
+              <h3
+                className={`text-base font-medium ${
+                  isCurrentRoute
+                    ? 'text-blue-600 mr-3'
+                    : 'font-normal text-secondary-neutral-light-800'
+                }`}>
+                {label}
+              </h3>
+            </div>
+          </div>
+          {dropdown && (
+            <div className='mr-4'>
+              <ArrowDropDownIcon fillColor={toggleState && theme.extend.colors.blue[900]} />
+            </div>
+          )}
+        </div>
+      </Link>
+
+      {toggleState && <div className='flex flex-col'>{children}</div>}
+    </div>
+  );
+};
+
+export default SideBarItem;

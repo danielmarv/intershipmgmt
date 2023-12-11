@@ -50,7 +50,7 @@ const  Sidebar = () => {
                     </span>
                   </div>
             </Link>
-            {/* <Link href="/student-register" className="group">
+            <Link href="/student-register" className="group">
                   <div
                     className={`flex items-center gap-3 rounded-md px-3 py-2 transition-all ${
                       isActive('/student-register') ? "bg-gray-100" : "group-hover:bg-gray-50"
@@ -73,7 +73,7 @@ const  Sidebar = () => {
                       Registration
                     </span>
                   </div>
-            </Link> */}
+            </Link>
             <SidebarItem href="/student-register" icon={<UsersIcon className="h-5 stroke-2" />} label="Registration" />
         </div>
       </div>
