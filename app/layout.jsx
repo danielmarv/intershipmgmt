@@ -1,6 +1,6 @@
 import '@styles/globals.css';
 
-import Sidebar from '@components/Sidebar';
+import Sidebar from '@components/Sidebar/Sidebar';
 
 
 export const metadata = {
