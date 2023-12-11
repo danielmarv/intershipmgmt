@@ -1,26 +1,5 @@
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-export const SidebarIconItem = ({ IconComponent, navPath }) => {
-  const router = useRouter();
-  // get current route
-  const currentRoute = router.pathname;
-  // check if current route contains navPath
-  const isCurrentRoute = currentRoute.includes(navPath);
-
-  return (
-    <Link href={navPath}>
-      <a
-        className={`relative flex items-center p-4 rounded cursor-pointer ${
-          isCurrentRoute ? 'bg-light-blue' : ''
-        } hover:bg-gray-200`}>
-        {isCurrentRoute && (
-          <span className='bg-blue-600 w-1 h-1/2 mr-2 absolute rounded-xl -left-2'></span>
-        )}
-        <IconComponent fill={isCurrentRoute ? '#145FFF' : '#6F87A1'} />
-      </a>
-    </Link>
-  );
-};
 
 const SideBarItem = ({ Icon, label, dropdown, navPath, children, toggleMethod, toggleState }) => {
   const router = useRouter();
@@ -64,15 +43,8 @@ const SideBarItem = ({ Icon, label, dropdown, navPath, children, toggleMethod, t
               </h3>
             </div>
           </div>
-          {dropdown && (
-            <div className='mr-4'>
-              <ArrowDropDownIcon fillColor={toggleState && theme.extend.colors.blue[900]} />
-            </div>
-          )}
         </div>
       </Link>
-
-      {toggleState && <div className='flex flex-col'>{children}</div>}
     </div>
   );
 };
