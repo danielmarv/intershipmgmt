@@ -1,6 +1,6 @@
 import axios from "axios";
-import Button from "@/app/components/Button";
-import Input from "@/app/components/inputs/Input";
+import Button from "@components/Admin/auth/Button";
+import Input from "@components/Admin/inputs";
 import { useCallback, useEffect, useState } from "react";
 import { 
     useForm 
