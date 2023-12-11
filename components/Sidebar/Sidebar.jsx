@@ -9,6 +9,7 @@ import {
   ShieldCheckIcon,
   ArrowLeftOnRectangleIcon,
 } from "@heroicons/react/24/outline";
+import SidebarItem from "@components/Sidebar/SidebarItem";
 
 const  Sidebar = () => {
   const router = useRouter();
