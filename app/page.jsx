@@ -12,8 +12,9 @@ const CreateStudent = () => {
 
     useEffect(() => {
         if (successMessage) {
+            alert(successMessage);
             const timeout = setTimeout(() => {
-                setSuccessMessage('');
+                setSuccessMessage(`Registration successful! Your registration number is ${formData.regNo}`);
                 setFormData({
                     fullName: '',
                     campusName: '',
@@ -28,7 +29,7 @@ const CreateStudent = () => {
                     emailId: '',
                     phoneNum: '',
                 });
-            }, 5000); // Clear success message and form data after 5 seconds (adjust as needed)
+            }, 5000);
 
             return () => clearTimeout(timeout);
         }
