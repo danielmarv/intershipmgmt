@@ -175,6 +175,7 @@ const  NewAdmission = ({type, formData, setFormData, submitting,  handleSubmit, 
                     schoolPractices: e.target.value })}
                   className="mt-2 px-2 py-2 text-lg w-full rounded border-gray-300 focus:border-blue-700 focus:ring-blue-700 "
                 >
+                  <option value="">Select Practice ....</option>
                   <option value="Practice 1">Practice 1</option>
                   <option value="Practice 2">Practice 2</option>
                   <option value="Both">Both</option>
