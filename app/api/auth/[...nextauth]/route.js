@@ -26,7 +26,7 @@ const handler = NextAuth({
         },
         async signIn({ credentials }) {
             try {
-                await connectToDB();
+                await connectedToDB();
 
                 const admin = await AdminUser.findOne({
                     username: credentials.username
