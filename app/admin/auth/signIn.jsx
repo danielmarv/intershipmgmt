@@ -70,22 +70,6 @@ const AuthForm = () => {
         }
     }
 
-    const socialAction = (action) => {
-        setIsLoading(true);
-    
-        signIn(action, { redirect: false })
-          .then((callback) => {
-            if (callback?.error) {
-              toast.error('Invalid credentials');
-            }
-    
-            if (callback?.ok && !callback?.error) {
-              toast.success('Logged in successfully!');
-            }
-          })
-          .finally(() => setIsLoading(false));
-      };
-
     return (
         <div
             className="
@@ -109,15 +93,6 @@ const AuthForm = () => {
                     className="space-y-6"
                     onSubmit={handleSubmit(onSubmit)}
                 >
-                    {variant === 'REGISTER' && (
-                        <Input
-                            id="name"
-                            label="Name"
-                            register={register}
-                            errors={errors}
-                            disabled={isLoading}
-                        />
-                    )}
                     <Input
                         id="email"
                         label="Email Address"

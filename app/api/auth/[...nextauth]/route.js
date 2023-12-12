@@ -1,6 +1,6 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import { connectToDB } from "@utils/database";
+import { connectedToDB } from '@utils/database';
 import AdminUser from "@models/adminUsers";
 import bcrypt from 'bcrypt';
 
@@ -26,7 +26,7 @@ const handler = NextAuth({
         },
         async signIn({ credentials }) {
             try {
-                await connectToDB();
+                await connectedToDB();
 
                 const admin = await AdminUser.findOne({
                     username: credentials.username

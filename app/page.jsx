@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 
 import Form from '@components/Form';
@@ -8,6 +8,32 @@ import Form from '@components/Form';
 const CreateStudent = () => {
     const router = useRouter();
     const [submitting, setSubmitting] = useState();
+    const [successMessage, setSuccessMessage] = useState('');
+
+    useEffect(() => {
+        if (successMessage) {
+            const timeout = setTimeout(() => {
+                setSuccessMessage('');
+                setFormData({
+                    fullName: '',
+                    campusName: '',
+                    schoolName: '',
+                    townName: '',
+                    districtName: '',
+                    kilometers: '',
+                    schoolPractices: '',
+                    moneyPaid: '',
+                    regNo: '',
+                    year: '',
+                    emailId: '',
+                    phoneNum: '',
+                });
+            }, 5000); // Clear success message and form data after 5 seconds (adjust as needed)
+
+            return () => clearTimeout(timeout);
+        }
+    }, [successMessage]);
+    
     const [formData, setFormData] = useState({
         fullName: '',
         campusName: '',
@@ -45,9 +71,10 @@ const CreateStudent = () => {
 
                 })
             })
-
-            if(response.ok) {
-                router.push('/')
+            if (response.ok) {
+                const data = await response.json();
+    
+                setSuccessMessage(`Registration successful! Your registration number is ${data.regNo}`);
             }
         } catch (error) {
             console.log(error)
@@ -57,14 +84,19 @@ const CreateStudent = () => {
     };
 
     return (
-        <Form 
-            type="Register"
-            formData={formData}
-            setFormData={setFormData}
-            submitting={submitting}
-            handleSubmit={createStudent}
-        />
-    )
+        <>
+            {successMessage && (
+                <div style={{ color: 'green' }}>{successMessage}</div>
+            )}
+            <Form 
+                type="Register"
+                formData={formData}
+                setFormData={setFormData}
+                submitting={submitting}
+                handleSubmit={createStudent}
+            />
+        </>
+    );
 };
 
 export default CreateStudent;

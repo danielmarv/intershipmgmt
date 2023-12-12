@@ -26,8 +26,8 @@ const  Sidebar = () => {
       </div>
       <div className="ie-menu mt-8 h-full">
         <div className="flex flex-col items-center gap-3 p-1 xl:items-stretch xl:px-3">
-            <SidebarItem label='Home' Icon={UsersIcon} navPath='/'/>
-            <SidebarItem label='Registration' Icon={UserPlusIcon} navPath='/student-register'/>
+            {/* <SidebarItem label='Home' Icon={UsersIcon} navPath='/'/> */}
+            <SidebarItem label='Registration' Icon={UserPlusIcon} navPath='/'/>
         </div>
       </div>
       {/* <div className="ie-user hidden items-center gap-2 px-3 xl:flex">
