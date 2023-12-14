@@ -38,7 +38,7 @@ const  Sidebar = () => {
             <div className="group flex cursor-pointer items-center gap-1 rounded-full bg-gray-100 px-2 py-1 transition-all hover:bg-gray-50">
               <ArrowLeftOnRectangleIcon className="h-4 stroke-gray-700 stroke-[1.5] group-hover:stroke-red-700" />
               <span className="text-xs font-medium text-gray-700 group-hover:text-red-700">
-                Login
+                <Link href='/login'>Login</Link>
               </span>
             </div>
           </div>
