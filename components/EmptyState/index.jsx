@@ -1,14 +1,11 @@
-import Collocate from '@/icons/Collocation/collocate.svg';
-import Button from '@/components/Button';
-import BoxedAddIcon from '@/icons/Actions/addBoxed.svg';
-import UploadIcon from '@/icons/Actions/upload.svg';
+import Button from '@components/Button';
 
 const EmptyState = () => (
   <div
     className='flex justify-center items-center flex-col mx-auto py-20'
     data-testid='collocate-empty-state'
   >
-    <Collocate />
+    {/* <Collocate /> */}
     <div className='flex flex-col justify-center text-center mt-10'>
       <h4 className='text-xl font-normal mb-6'>
         This is where you will manage your collocated monitors

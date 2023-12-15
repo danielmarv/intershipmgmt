@@ -66,15 +66,16 @@ const CustomTable = ({
         data-testid={dataTestId}
       >
         <colgroup>
-          <col className='w-[61px]' />
-          {headers.map((header, columnIndex) => (
-            <col key={header} style={{ width: `${size - 61 / headers.length}%` }} />
-          ))}
+            <col className='w-[61px]' />
+            {headers && headers.map((header, columnIndex) => (
+                <col key={header} style={{ width: `${size - 61 / headers.length}%` }} />
+            ))}
+
         </colgroup>
         <thead>
           <tr className='border-b border-b-slate-300 text-black-900'>
             <th scope='col' className='px-4 pb-2'></th>
-            {headers.map((header, columnIndex) => (
+            {headers && headers.map((header, columnIndex) => (
               <th
                 scope='col'
                 key={header}

@@ -2,21 +2,15 @@
 
 import React, { useState, useEffect } from "react";
 import HeaderNav from '@components/Layout/header';
-import BoxedAddIcon from '@/icons/Actions/addBoxed.svg';
-import UploadIcon from '@/icons/Actions/upload.svg';
 import Button from '@components/Button';
 import ContentBox from '@components/ContentBox';
-import { useDispatch, useSelector } from 'react-redux';
-import { getDeviceStatusSummary } from '@/lib/store/services/collocation';
-import Tabs from '@components/Tabs/Tab';
-import Tab from '@components/Tabs/Tab';
-import Table from '@/components/Collocation/DeviceStatus/Table';
-import Toast from '@/components/Toast';
-import EmptyState from '@/components/Collocation/Collocate/empty_state';
-import Layout from '@/components/Layout';
+import Table from '@components/Table';
+import Toast from '@components/Toast';
+import EmptyState from '@components/EmptyState';
 
 const Students = () => {
-  
+    const [isLoading, setIsLoading] = useState(false);
+    const [isError, setIsError] = useState(false);
 
   const [allStudents, setAllStudents] = useState([]);
 
@@ -24,10 +18,23 @@ const Students = () => {
 //     deviceStatusSummary && deviceStatusSummary.filter((device) => device.status === status);
 
 const fetchStudents = async () => {
-    const response = await fetch("/api/student");
-    const data = await response.json();
+    setIsLoading(true)
 
-    setAllStudents(data);
+    try {
+        const response = await fetch("/api/student");
+        
+        if (!response.ok) {
+            throw new Error(`Failed to fetch student data: ${response.status} ${response.statusText}`);
+        }
+
+        const data = await response.json();
+
+        setAllStudents(data);
+    } catch (error) {
+        console.error('Error fetching student data:', error);
+    } finally {
+        setIsLoading(false);
+    }
   };
 
   useEffect(() => {
