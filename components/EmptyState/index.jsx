@@ -1,11 +1,17 @@
 import Button from '@components/Button';
+import Image from 'next/image';
+import BuLogo from '@public/assets/images/bugema.png';
 
 const EmptyState = () => (
   <div
     className='flex justify-center items-center flex-col mx-auto py-20'
     data-testid='collocate-empty-state'
   >
-    {/* <Collocate /> */}
+    <Image 
+      src={BuLogo} 
+      width={200}
+      height={200}
+    />
     <div className='flex flex-col justify-center text-center mt-10'>
       <h4 className='text-xl font-normal mb-6'>
         This is where you will monitor all Students Activities
