@@ -207,19 +207,19 @@ const Students = () => {
                 <div className='mr-[10px]'>
                   {/* <UploadIcon /> */}
                 </div>
-                Import data
+                Administration
               </Button>
               <div className='mr-[14px]'></div>
               <Button
                 className={
-                  'rounded-none text-white bg-blue-900 border border-blue-900 hover:bg-dark-blue hover:border-dark-blue font-medium text-sm'
+                  'rounded-none text-white bg-blue-500 border border-blue-500 hover:bg-dark-blue hover:border-dark-blue font-medium text-sm'
                 }
-                path='/collocation/add_monitor'
+                path='/'
               >
                 <div className='mr-[10px]'>
                   {/* <BoxedAddIcon /> */}
                 </div>
-                Add monitors
+                Home
               </Button>
             </div>
           ))}
@@ -230,22 +230,22 @@ const Students = () => {
             <table className="table-fixed border-collapse text-xs text-left w-auto md:w-full my-6">
               <thead>
                 <tr className="border-b border-b-slate-300 text-black-900">
-                  <th scope="col" className="px-4 pb-2">
+                  <th scope="col" className="px-6 pb-2">
                     Name
                   </th>
-                  <th scope="col" className="px-4 pb-2">
+                  <th scope="col" className="px-2 pb-2">
                     Campus
                   </th>
                   <th scope="col" className="px-4 pb-2">
                     District
                   </th>
-                  <th scope="col" className="px-4 pb-2">
+                  <th scope="col" className="px-2 pb-2">
                     Email
                   </th>
-                  <th scope="col" className="px-4 pb-2">
+                  <th scope="col" className="px-8 pb-2">
                     Reg No.
                   </th>
-                  <th scope="col" className="px-4 pb-2">
+                  <th scope="col" className="px-2 pb-2">
                     Practice
                   </th>
                 </tr>
@@ -253,12 +253,12 @@ const Students = () => {
               <tbody>
                 {allStudents.map((student, index) => (
                   <tr key={index} className="border-b border-b-slate-300">
-                    <td className="px-4 py-2 font-normal">{student.fullName}</td>
-                    <td className="px-4 py-2 font-normal">{student.campusName}</td>
-                    <td className="px-4 py-2 font-normal">{student.districtName}</td>
-                    <td className="px-4 py-2 font-normal">{student.emailId}</td>
-                    <td className="px-4 py-2 font-normal">{student.regNo}</td>
-                    <td className="px-4 py-2 font-normal">{student.schoolPractices}</td>
+                    <td className="px-2 py-2 font-normal">{student.fullName}</td>
+                    <td className="px-2 py-2 font-normal">{student.campusName}</td>
+                    <td className="px-2 py-2 font-normal">{student.districtName}</td>
+                    <td className="px-2 py-2 font-normal">{student.emailId}</td>
+                    <td className="px-8 py-2 font-normal">{student.regNo}</td>
+                    <td className="px-2 py-2 font-normal">{student.schoolPractices}</td>
                   </tr>
                 ))}
               </tbody>
