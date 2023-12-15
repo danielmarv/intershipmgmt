@@ -1,9 +1,9 @@
-import { connectToDB } from '@utils/database';
+import { connectedToDB } from '@utils/database';
 import Student from '@models/students';
 
 export const GET = async (request) => {
     try {
-        await connectToDB();
+        await connectedToDB();
 
         const students = await Student.find({});
 

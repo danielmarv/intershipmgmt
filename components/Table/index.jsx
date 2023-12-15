@@ -68,7 +68,7 @@ const CustomTable = ({
         <colgroup>
             <col className='w-[61px]' />
             {headers && headers.map((header, columnIndex) => (
-                <col key={header} style={{ width: `${size - 61 / headers.length}%` }} />
+                <col key={header}  />
             ))}
 
         </colgroup>
@@ -100,7 +100,7 @@ const CustomTable = ({
         {isLoading ? (
           <tbody>
             <tr>
-              <td colSpan={(headers.length + 1).toString()} className='mx-auto'>
+              <td  className='mx-auto'>
                 <Spinner />
               </td>
             </tr>
@@ -134,7 +134,7 @@ const CustomTable = ({
             ) : (
               <tr>
                 <td
-                  colSpan={(headers.length + 1).toString()}
+                //   colSpan={(headers.length + 1).toString()}
                   className='text-center pt-6 text-grey-300'
                 >
                   Unable to get {type} information

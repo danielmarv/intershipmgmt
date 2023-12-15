@@ -39,7 +39,7 @@ const fetchStudents = async () => {
 
   useEffect(() => {
     fetchStudents();
-  }, []);
+  }, []);  
 
   return (
     <>
