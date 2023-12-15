@@ -1,11 +1,13 @@
 
 
 // components/InternshipRegistration.js
+import RootLayout from '@app/layout';
 import React from 'react';
 
 const InternshipRegistration = () => {
   return (
-    <div className="container mx-auto">
+    <RootLayout>
+      <div className="container mx-auto">
       <h2 className="text-center text-3xl font-semibold my-8">TRACK SCHOOL PRACTICE PROGRESS</h2>
 
       <form action="" className="bg-gray-100 p-4 rounded-md shadow-md mb-8">
@@ -98,6 +100,8 @@ const InternshipRegistration = () => {
         </div>
       </div>
     </div>
+    </RootLayout>
+    
   );
 };
 

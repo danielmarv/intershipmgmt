@@ -33,15 +33,11 @@ const handler = NextAuth({
                 });
 
                 if (!admin) {
-                    // Admin does not exist
                     return false;
                 }
-
-                // Compare the provided password with the hashed password
                 const passwordMatch = await bcrypt.compare(credentials.password, admin.password);
 
                 if (!passwordMatch) {
-                    // Password does not match
                     return false;
                 }
 
