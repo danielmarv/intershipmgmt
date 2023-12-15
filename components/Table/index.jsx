@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import ArrowDownIcon from '@/icons/Common/arrow_down';
-import ArrowUpIcon from '@/icons/Common/arrow_up';
-import { useWindowSize } from '@/lib/windowSize';
+import ArrowDownIcon from '@public/assets/icons/arrow_down';
+import ArrowUpIcon from '@public/assets/icons/arrow_up';
+import { useWindowSize } from '@lib/Window/windowSize';
 import moment from 'moment';
 import { isEmpty } from 'underscore';
-import Spinner from '@/components/Spinner';
+import Spinner from '@components/Spinner';
 
 const CustomTable = ({
   headers,
@@ -88,7 +88,7 @@ const CustomTable = ({
                 {sortableColumns.includes(columnIndex) && (
                   <>
                     {sortColumn === columnIndex &&
-                      (sortDirection === 'asc' ? <ArrowUpIcon /> : <ArrowDownIcon />)}
+                      (sortDirection === 'asc' ? < Image src={ArrowUpIcon} /> : <Image src={ArrowDownIcon} />)}
                   </>
                 )}
               </th>
