@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState, useEffect } from "react";
 import HeaderNav from '@components/Layout/header';
 import BoxedAddIcon from '@/icons/Actions/addBoxed.svg';
