@@ -1,5 +1,5 @@
 {
-  "name": "playgroung",
+  "name": "internshipmgmt",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -14,7 +14,9 @@
     "autoprefixer": "10.4.16",
     "bcrypt": "^5.1.1",
     "clsx": "^2.0.0",
+    "datatables.net": "^1.13.8",
     "heroicons": "^2.0.18",
+    "jquery": "^3.7.1",
     "moment": "^2.29.4",
     "mongoose": "^8.0.2",
     "next": "14.0.3",

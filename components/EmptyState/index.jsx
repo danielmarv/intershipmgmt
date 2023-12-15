@@ -8,19 +8,19 @@ const EmptyState = () => (
     {/* <Collocate /> */}
     <div className='flex flex-col justify-center text-center mt-10'>
       <h4 className='text-xl font-normal mb-6'>
-        This is where you will manage your collocated monitors
+        This is where you will monitor all Students Activities
       </h4>
       <div>
         <p className='text-grey-300 text-sm font-light'>
-          You can add a monitor to start collocation or import your own data
+          You can you can edit, update, delete and add new students
         </p>
       </div>
       <div className='flex justify-center items-center mt-6'>
         <Button
           className={
-            'rounded-none text-white bg-blue-900 border border-blue-900 hover:bg-dark-blue hover:border-dark-blue font-medium'
+            'rounded-none text-white bg-blue-500 border border-blue-500 hover:bg-dark-blue hover:border-dark-blue font-medium'
           }
-          path='/collocation/add_monitor'
+          path='/'
         >
           <div className='mr-[10px]'>
             {/* <BoxedAddIcon /> */}
@@ -36,7 +36,7 @@ const EmptyState = () => (
           <div className='mr-[10px]'>
             {/* <UploadIcon /> */}
           </div>
-          Import data
+          Home | Administration
         </Button>
       </div>
     </div>
