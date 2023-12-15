@@ -13,7 +13,7 @@ import Toast from '@/components/Toast';
 import EmptyState from '@/components/Collocation/Collocate/empty_state';
 import Layout from '@/components/Layout';
 
-const Collocate = () => {
+const Students = () => {
   
 
   const [allStudents, setAllStudents] = useState([]);
@@ -106,4 +106,4 @@ const fetchStudents = async () => {
   );
 };
 
-export default withPermission(withAuth(Collocate), 'CREATE_UPDATE_AND_DELETE_NETWORK_DEVICES');
+export default Students;
