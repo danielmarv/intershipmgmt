@@ -14,9 +14,12 @@ const UserLogin = () => {
     const router = useRouter();
   const [errors, setErrors] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false); 
   const [passwordType, setPasswordType] = useState('password');
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [formData, setFormData] = useState({
+    username: "", 
+    password: ""
+  });
 
   useEffect(() => {
     if (session?.status === 'authenticated') {
@@ -30,15 +33,22 @@ const UserLogin = () => {
   
     try {
       const result = await signIn('credentials', {
+        username: formData.username,
+        password: formData.password,
         redirect: false,
-        username,
-        password,
       });
+
+      console.log(result);
 
       if (result.ok) {
         router.push('/admin');
+        setIsLoggedIn(true);
       }
 
+      if (!result.ok) {
+        setErrors(result.error);
+      }
+      return result;
     } catch (error) {
       // Handle other types of errors (e.g., network issues, server errors)
       console.error('An error occurred during login:', error);
@@ -62,16 +72,17 @@ const UserLogin = () => {
           Administration Use Only !!
         </p>
         {errors && <Toast type={'errors'} timeout={8000} message={`${errors}`} />}
-        <form onSubmit={handleLogin} data-testid='login-form'>
+        {isLoggedIn && <Toast type={'success'} timeout={8000} message={'Logged in succussfully'} />}
+        <form onSubmit={handleLogin}>
           <div className='mt-6'>
             <div className='w-full'>
               <div className='text-xl text-black-700'>User Name</div>
               <div className='mt-2 w-full'>
                 <input
                   type='text'
-                  data-testid='username'
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
+                  value={formData.username}
+                  onChange={(e) => setFormData({ ...formData,
+                    username: e.target.value })}
                   placeholder='e.g. admin'
                   className={`input ml-3 w-full px-6 p-3 rounded-[4px] border-gray-300 focus:outline-none focus:ring-0 placeholder-gray-300 focus:border-green-500`}
                   required
@@ -85,8 +96,9 @@ const UserLogin = () => {
               <div className='mt-2 w-full relative'>
                 <input
                   data-testid='password'
-                  value={password} 
-                  onChange={(e) => setPassword(e.target.value)}
+                  value={formData.password} 
+                  onChange={(e) => setFormData({ ...formData,
+                  password: e.target.value })}
                   type={passwordType}
                   placeholder='******'
                   className={`ml-3 w-full px-6 p-3 rounded-[4px] border-gray-300 focus:outline-none focus:ring-0 placeholder-gray-300 focus:border-green-500`}

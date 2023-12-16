@@ -10,6 +10,7 @@ import {
   UserPlusIcon,
   UserCircleIcon,
   ShieldCheckIcon,
+  ListIcon,
   ArrowLeftOnRectangleIcon,
 } from "@heroicons/react/24/outline";
 import SidebarItem from "@components/Sidebar/SidebarItem";
@@ -38,18 +39,21 @@ const  Sidebar = () => {
         </div>
       </div>
       <div className="ie-menu mt-8 h-full">
-        <div className="flex flex-col items-center gap-3 p-1 xl:items-stretch xl:px-3">
         {session?.user ? (
-            <SidebarItem label='DashBoard' Icon={UserPlusIcon} navPath='/admin'/>,
-            <SidebarItem label='Students' Icon={UsersIcon} navPath='/admin/student-list'/>,
-            <SidebarItem label='Supervisors' Icon={UsersIcon} navPath='/admin'/>,
-            <SidebarItem label='Mark ASS' Icon={UsersIcon} navPath='/admin'/>,
+          <div className="flex flex-col items-center gap-3 p-1 xl:items-stretch xl:px-3">
+            <SidebarItem label='DashBoard' Icon={HomeIcon} navPath='/admin'/>
+            <SidebarItem label='Students' Icon={ListIcon} navPath='/admin/student-list'/>
+            <SidebarItem label='Supervisors' Icon={UsersIcon} navPath='/admin'/>
+            <SidebarItem label='Marks ASS' Icon={UsersIcon} navPath='/admin'/>
             <SidebarItem label='' Icon={UsersIcon} navPath='/logout'/>
+          </div>
         ) : (
-          <SidebarItem label='Registration' Icon={UserPlusIcon} navPath='/'/>,
-          <SidebarItem label='Tracking' Icon={UsersIcon} navPath='/tracking'/>
+          <div className="flex flex-col items-center gap-3 p-1 xl:items-stretch xl:px-3">
+            <SidebarItem label='Registration' Icon={UserPlusIcon} navPath='/'/>
+            <SidebarItem label='Tracking' Icon={UsersIcon} navPath='/tracking'/>
+          </div>
         )} 
-        </div>
+        
       </div>
       <div className="ie-user hidden items-center gap-2 px-3 xl:flex">
         <UserCircleIcon className="h-12 stroke-gray-700 stroke-1 group-hover:stroke-blue-700" />
