@@ -1,6 +1,9 @@
-"use client"
+"use client";
+
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { useState, useEffect } from 'react';
+import { signIn, signOut, useSession, getProviders } from 'next-auth/react'
 import {
   HomeIcon,
   UsersIcon,
@@ -12,10 +15,20 @@ import {
 import SidebarItem from "@components/Sidebar/SidebarItem";
 
 const  Sidebar = () => {
-  const router = useRouter();
-  const isActive = (href) => {
-    return router.pathname === href;
-  };
+  const { data: session } = useSession();
+
+    const [ providers, setProviders ] = useState(null);
+
+    const [ toggleDropdown, setToggleDropdown ] = useState(false);
+
+    useEffect(() => {
+        const setUpProviders = async () => {
+            const response = await getProviders();
+
+            setProviders(response);
+        }
+        setUpProviders();
+    }, [])
   return (
     <div className="sticky top-0 flex h-screen flex-col justify-between border-r border-gray-200 bg-white px-1 py-5 xl:py-12 xl:px-1">
       <div className="ie-logo px-1 py-0 text-center xl:text-left">
@@ -26,8 +39,16 @@ const  Sidebar = () => {
       </div>
       <div className="ie-menu mt-8 h-full">
         <div className="flex flex-col items-center gap-3 p-1 xl:items-stretch xl:px-3">
-            <SidebarItem label='Registration' Icon={UserPlusIcon} navPath='/'/>
-            <SidebarItem label='Tracking' Icon={UsersIcon} navPath='/tracking'/> 
+        {session?.user ? (
+            <SidebarItem label='DashBoard' Icon={UserPlusIcon} navPath='/admin'/>,
+            <SidebarItem label='Students' Icon={UsersIcon} navPath='/admin/student-list'/>,
+            <SidebarItem label='Supervisors' Icon={UsersIcon} navPath='/admin'/>,
+            <SidebarItem label='Mark ASS' Icon={UsersIcon} navPath='/admin'/>,
+            <SidebarItem label='' Icon={UsersIcon} navPath='/logout'/>
+        ) : (
+          <SidebarItem label='Registration' Icon={UserPlusIcon} navPath='/'/>,
+          <SidebarItem label='Tracking' Icon={UsersIcon} navPath='/tracking'/>
+        )} 
         </div>
       </div>
       <div className="ie-user hidden items-center gap-2 px-3 xl:flex">
@@ -38,7 +59,14 @@ const  Sidebar = () => {
             <div className="group flex cursor-pointer items-center gap-1 rounded-full bg-gray-100 px-2 py-1 transition-all hover:bg-gray-50">
               <ArrowLeftOnRectangleIcon className="h-4 stroke-gray-700 stroke-[1.5] group-hover:stroke-red-700" />
               <span className="text-xs font-medium text-gray-700 group-hover:text-red-700">
-                <Link href='/login'>Login</Link>
+              {session?.user ? (
+                <button type="button" onClick={signOut} 
+                  className="outline_btn">
+                      Sign Out
+                  </button>
+              ) : (
+                    <Link href="/login" >login</Link>
+                  )}
               </span>
             </div>
           </div>
