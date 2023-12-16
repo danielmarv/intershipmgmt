@@ -90,7 +90,7 @@ const UserLogin = () => {
                   type='text'
                   data-testid='username'
                   onChange={(e) => dispatch(setUserName(e.target.value))}
-                  placeholder='e.g. greta.nagawa@gmail.com'
+                  placeholder='e.g. admin'
                   className={`input ml-3 w-full px-6 p-3 rounded-[4px] border-gray-300 focus:outline-none focus:ring-0 placeholder-gray-300 focus:border-green-500`}
                   required
                 />

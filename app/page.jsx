@@ -14,7 +14,8 @@ const CreateStudent = () => {
         if (successMessage) {
             alert(successMessage);
             const timeout = setTimeout(() => {
-                setSuccessMessage(`Registration successful! Your registration number is ${formData.regNo}`);
+                setSuccessMessage(`Registration successful! Your registration number is <br>
+                ${data.regNo} and i's the on you will use to track your internship status.`);
                 setFormData({
                     fullName: '',
                     campusName: '',
@@ -75,7 +76,8 @@ const CreateStudent = () => {
             if (response.ok) {
                 const data = await response.json();
     
-                setSuccessMessage(`Registration successful! Your registration number is ${data.regNo}`);
+                setSuccessMessage(`Registration successful! Your registration number is <br>
+                ${data.regNo} and i's the on you will use to track your internship status.`);
             }
         } catch (error) {
             console.log(error)
