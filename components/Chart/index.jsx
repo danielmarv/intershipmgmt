@@ -1,5 +1,5 @@
 // ChartComponent.jsx
-
+"use client";
 import React from 'react';
 import { Bar, Line, Doughnut } from 'react-chartjs-2';
 
