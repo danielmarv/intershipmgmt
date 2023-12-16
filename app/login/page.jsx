@@ -23,48 +23,65 @@ const UserLogin = () => {
   const [error, setError] = useState();
   const [loading, setLoading] = useState(false);
   const [passwordType, setPasswordType] = useState('password');
-//   const dispatch = useDispatch();
-//   const router = useRouter();
-//   const postData = useSelector((state) => state.login);
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+
+  // const handleLogin = async (e) => {
+  //   // e.preventDefault();
+  //   // setLoading(true);
+
+  //   // try {
+  //   //   const { token } = await postUserLoginDetails(postData.userData);
+  //   //   localStorage.setItem('token', token);
+  //   //   const decoded = jwt_decode(token);
+  //   //   const response = await getUserDetails(decoded._id, token);
+  //   //   localStorage.setItem('loggedUser', JSON.stringify(response.users[0]));
+
+  //   //   if (!response.users[0].groups[0].grp_title) {
+  //   //     throw new Error('Server error. Contact support to add you to the AirQo Organisation');
+  //   //   }
+
+  //   //   await dispatch(getIndividualUserPreferences(response.users[0]._id)).then((res) => {
+  //   //     if (res.payload.success) {
+  //   //       const preferences = res.payload.preferences;
+  //   //       const activeGroup = preferences[0]?.group_id
+  //   //         ? response.users[0].groups.find((group) => group._id === preferences[0].group_id)
+  //   //         : response.users[0].groups.find((group) => group.grp_title === 'airqo');
+  //   //       localStorage.setItem('activeGroup', JSON.stringify(activeGroup));
+  //   //     }
+  //   //   });
+
+  //   //   dispatch(setUserInfo(response.users[0]));
+  //   //   dispatch(setSuccess(true));
+  //   //   router.push('/admin');
+  //   // } catch (error) {
+  //   //   dispatch(setSuccess(false));
+  //   //   const errorMessage =
+  //   //     error?.response?.data.message || 'Something went wrong, please try again';
+  //   //   dispatch(setFailure(errorMessage));
+  //   //   setErrors(true);
+  //   //   setError(errorMessage);
+  //   // } finally {
+  //   //   setLoading(false);
+  //   // }
+  // };
 
   const handleLogin = async (e) => {
-    // e.preventDefault();
-    // setLoading(true);
+    e.preventDefault();
+    
+    const result = await signIn('credentials', {
+      redirect: false,
+      username,
+      password,
+    });
 
-    // try {
-    //   const { token } = await postUserLoginDetails(postData.userData);
-    //   localStorage.setItem('token', token);
-    //   const decoded = jwt_decode(token);
-    //   const response = await getUserDetails(decoded._id, token);
-    //   localStorage.setItem('loggedUser', JSON.stringify(response.users[0]));
-
-    //   if (!response.users[0].groups[0].grp_title) {
-    //     throw new Error('Server error. Contact support to add you to the AirQo Organisation');
-    //   }
-
-    //   await dispatch(getIndividualUserPreferences(response.users[0]._id)).then((res) => {
-    //     if (res.payload.success) {
-    //       const preferences = res.payload.preferences;
-    //       const activeGroup = preferences[0]?.group_id
-    //         ? response.users[0].groups.find((group) => group._id === preferences[0].group_id)
-    //         : response.users[0].groups.find((group) => group.grp_title === 'airqo');
-    //       localStorage.setItem('activeGroup', JSON.stringify(activeGroup));
-    //     }
-    //   });
-
-    //   dispatch(setUserInfo(response.users[0]));
-    //   dispatch(setSuccess(true));
-    //   router.push('/admin');
-    // } catch (error) {
-    //   dispatch(setSuccess(false));
-    //   const errorMessage =
-    //     error?.response?.data.message || 'Something went wrong, please try again';
-    //   dispatch(setFailure(errorMessage));
-    //   setErrors(true);
-    //   setError(errorMessage);
-    // } finally {
-    //   setLoading(false);
-    // }
+    if (!result.error) {
+      // Redirect to the admin dashboard or any other page
+      window.location.href = '/admin';
+    } else {
+      // Handle login failure
+      console.error(result.error);
+    }
   };
 
   const togglePasswordVisibility = () => {
@@ -89,7 +106,8 @@ const UserLogin = () => {
                 <input
                   type='text'
                   data-testid='username'
-                  onChange={(e) => dispatch(setUserName(e.target.value))}
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
                   placeholder='e.g. admin'
                   className={`input ml-3 w-full px-6 p-3 rounded-[4px] border-gray-300 focus:outline-none focus:ring-0 placeholder-gray-300 focus:border-green-500`}
                   required
@@ -103,7 +121,8 @@ const UserLogin = () => {
               <div className='mt-2 w-full relative'>
                 <input
                   data-testid='password'
-                  onChange={(e) => dispatch(setUserPassword(e.target.value))}
+                  value={password} 
+                  onChange={(e) => setPassword(e.target.value)}
                   type={passwordType}
                   placeholder='******'
                   className={`ml-3 w-full px-6 p-3 rounded-[4px] border-gray-300 focus:outline-none focus:ring-0 placeholder-gray-300 focus:border-green-500`}

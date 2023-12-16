@@ -9,8 +9,8 @@ const handler = NextAuth({
         CredentialsProvider({
             name: "credentials",
             credentials: {
-                username: { label: 'Username', type: 'text' },
-                password: { label: 'Password', type: 'password' }
+                username: { label: "Username", type: "text" },
+                password: { label: "Password", type: "password" },
             },
         }),
     ],
@@ -24,18 +24,18 @@ const handler = NextAuth({
 
             return session;
         },
-        async signIn({ credentials }) {
+        async signIn({ adminUser }) {
             try {
                 await connectedToDB();
 
                 const admin = await AdminUser.findOne({
-                    username: credentials.username
+                    username: adminUser.username
                 });
 
                 if (!admin) {
                     return false;
                 }
-                const passwordMatch = await bcrypt.compare(credentials.password, admin.password);
+                const passwordMatch = await bcrypt.compare(adminUser.password, admin.password);
 
                 if (!passwordMatch) {
                     return false;
