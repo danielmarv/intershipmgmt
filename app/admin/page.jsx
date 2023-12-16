@@ -50,7 +50,7 @@ const Dashboard = () => {
                               <div className="rounded-full p-5 bg-yellow-600"><i className="fas fa-user-plus fa-2x fa-inverse"></i></div>
                           </div>
                           <div className="flex-1 text-right md:text-center">
-                              <h2 className="font-bold uppercase text-gray-600">Inetrnship Supervisors</h2>
+                              <h2 className="font-bold uppercase text-gray-600">Supervisors</h2>
                               <p className="font-bold text-3xl">2 <span className="text-yellow-600"><i className="fas fa-caret-up"></i></span></p>
                           </div>
                       </div>
@@ -63,8 +63,8 @@ const Dashboard = () => {
                               <div className="rounded-full p-5 bg-blue-600"><i className="fas fa-server fa-2x fa-inverse"></i></div>
                           </div>
                           <div className="flex-1 text-right md:text-center">
-                              <h2 className="font-bold uppercase text-gray-600">Server Uptime</h2>
-                              <p className="font-bold text-3xl">152 days</p>
+                              <h2 className="font-bold uppercase text-gray-600">Completed</h2>
+                              <p className="font-bold text-3xl">84</p>
                           </div>
                       </div>
                   </div>
@@ -78,8 +78,8 @@ const Dashboard = () => {
                               <div className="rounded-full p-5 bg-indigo-600"><i className="fas fa-tasks fa-2x fa-inverse"></i></div>
                           </div>
                           <div className="flex-1 text-right md:text-center">
-                              <h2 className="font-bold uppercase text-gray-600">To Do List</h2>
-                              <p className="font-bold text-3xl">7 tasks</p>
+                              <h2 className="font-bold uppercase text-gray-600">Pending</h2>
+                              <p className="font-bold text-3xl">78</p>
                           </div>
                       </div>
                   </div>
@@ -108,38 +108,34 @@ const Dashboard = () => {
               <div className="w-full md:w-1/2 xl:w-1/3 p-6">
                   <div className="bg-white border-transparent rounded-lg shadow-xl">
                       <div className="bg-gradient-to-b from-gray-300 to-gray-100 uppercase text-gray-800 border-b-2 border-gray-300 rounded-tl-lg rounded-tr-lg p-2">
-                          <h2 className="font-bold uppercase text-gray-600">Graph</h2>
+                          <h2 className="font-bold uppercase text-gray-600">Practices</h2>
                       </div>
                       <div className="p-5">
                           <table className="w-full p-5 text-gray-700">
                               <thead>
                               <tr>
                                   <th className="text-left text-blue-900">Name</th>
-                                  <th className="text-left text-blue-900">Side</th>
-                                  <th className="text-left text-blue-900">Role</th>
+                                  <th className="text-left text-blue-900">Students</th>
                               </tr>
                               </thead>
 
                               <tbody>
                               <tr>
-                                  <td>Obi Wan Kenobi</td>
-                                  <td>Light</td>
-                                  <td>Jedi</td>
+                                  <td>Practice 1</td>
+                                  <td>40</td>
                               </tr>
                               <tr>
-                                  <td>Greedo</td>
-                                  <td>South</td>
-                                  <td>Scumbag</td>
+                                  <td>Practice 2</td>
+                                  <td>80</td>
                               </tr>
                               <tr>
-                                  <td>Darth Vader</td>
-                                  <td>Dark</td>
-                                  <td>Sith</td>
+                                  <td>Both</td>
+                                  <td>20</td>
                               </tr>
                               </tbody>
                           </table>
 
-                          <p className="py-2"><a href="#">See More issues...</a></p>
+                          <p className="py-2"><a href="#">See More Practices...</a></p>
 
                       </div>
                   </div>
@@ -148,38 +144,30 @@ const Dashboard = () => {
               <div className="w-full md:w-1/2 xl:w-1/3 p-6">
                   <div className="bg-white border-transparent rounded-lg shadow-xl">
                       <div className="bg-gradient-to-b from-gray-300 to-gray-100 uppercase text-gray-800 border-b-2 border-gray-300 rounded-tl-lg rounded-tr-lg p-2">
-                          <h2 className="font-bold uppercase text-gray-600">Graph</h2>
+                          <h2 className="font-bold uppercase text-gray-600">Students</h2>
                       </div>
                       <div className="p-5">
                           <table className="w-full p-5 text-gray-700">
                               <thead>
                               <tr>
                                   <th className="text-left text-blue-900">Name</th>
-                                  <th className="text-left text-blue-900">Side</th>
-                                  <th className="text-left text-blue-900">Role</th>
+                                  <th className="text-left text-blue-900">Reg No</th>
                               </tr>
                               </thead>
 
                               <tbody>
                               <tr>
-                                  <td>Obi Wan Kenobi</td>
-                                  <td>Light</td>
-                                  <td>Jedi</td>
+                                  <td>Ntege Daniel</td>
+                                  <td>21/BCC/BU/R/0019</td>
                               </tr>
                               <tr>
-                                  <td>Greedo</td>
-                                  <td>South</td>
-                                  <td>Scumbag</td>
-                              </tr>
-                              <tr>
-                                  <td>Darth Vader</td>
-                                  <td>Dark</td>
-                                  <td>Sith</td>
+                                  <td>Mugerwa Joseph</td>
+                                  <td>21/BSE/BU/R/0001</td>
                               </tr>
                               </tbody>
                           </table>
 
-                          <p className="py-2"><a href="#">See More issues...</a></p>
+                          <p className="py-2"><a href="#">See More Students...</a></p>
 
                       </div>
                   </div>
@@ -188,38 +176,30 @@ const Dashboard = () => {
               <div className="w-full md:w-1/2 xl:w-1/3 p-6">
                   <div className="bg-white border-transparent rounded-lg shadow-xl">
                       <div className="bg-gradient-to-b from-gray-300 to-gray-100 uppercase text-gray-800 border-b-2 border-gray-300 rounded-tl-lg rounded-tr-lg p-2">
-                          <h2 className="font-bold uppercase text-gray-600">Graph</h2>
+                          <h2 className="font-bold uppercase text-gray-600">Supervisors</h2>
                       </div>
                       <div className="p-5">
                           <table className="w-full p-5 text-gray-700">
                               <thead>
                               <tr>
                                   <th className="text-left text-blue-900">Name</th>
-                                  <th className="text-left text-blue-900">Side</th>
-                                  <th className="text-left text-blue-900">Role</th>
+                                  <th className="text-left text-blue-900">District</th>
                               </tr>
                               </thead>
 
                               <tbody>
                               <tr>
-                                  <td>Obi Wan Kenobi</td>
-                                  <td>Light</td>
-                                  <td>Jedi</td>
+                                  <td>John Deo</td>
+                                  <td>Luweero</td>
                               </tr>
                               <tr>
-                                  <td>Greedo</td>
-                                  <td>South</td>
-                                  <td>Scumbag</td>
-                              </tr>
-                              <tr>
-                                  <td>Darth Vader</td>
-                                  <td>Dark</td>
-                                  <td>Sith</td>
+                                  <td>Allan Smith</td>
+                                  <td>Kampala</td>
                               </tr>
                               </tbody>
                           </table>
 
-                          <p className="py-2"><a href="#">See More issues...</a></p>
+                          <p className="py-2"><a href="#">See More Supervisors...</a></p>
 
                       </div>
                   </div>
