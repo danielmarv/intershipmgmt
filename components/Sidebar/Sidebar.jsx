@@ -54,6 +54,7 @@ const  Sidebar = () => {
         )} 
         
       </div>
+      {session?.user ? (
       <div className="ie-user hidden items-center gap-2 px-3 xl:flex">
         <UserCircleIcon className="h-12 stroke-gray-700 stroke-1 group-hover:stroke-blue-700" />
         <div className="ie-userDetails">
@@ -62,14 +63,10 @@ const  Sidebar = () => {
             <div className="group flex cursor-pointer items-center gap-1 rounded-full bg-gray-100 px-2 py-1 transition-all hover:bg-gray-50">
               <ArrowLeftOnRectangleIcon className="h-4 stroke-gray-700 stroke-[1.5] group-hover:stroke-red-700" />
               <span className="text-xs font-medium text-gray-700 group-hover:text-red-700">
-              {session?.user ? (
                 <button type="button" onClick={signOut} 
-                  className="outline_btn">
+                  className="btn-danger">
                       Sign Out
                   </button>
-              ) : (
-                    <Link href="/login" >login</Link>
-                  )}
               </span>
             </div>
           </div>
@@ -78,12 +75,38 @@ const  Sidebar = () => {
           </span>
         </div>
       </div>
-      <div className="ie-userMobile p-1 xl:hidden">
-        <span className="flex flex-col items-center rounded-md bg-gray-50 px-3 py-2">
-          <ArrowLeftOnRectangleIcon className="h-5 stroke-gray-700 stroke-2 group-hover:stroke-red-700" />
-        </span>
-      </div>
+      ) : (
+        <button type="button" onClick={signIn} 
+          className="outline_btn">
+              <Link href="/login" >login</Link>
+        </button>
+        )}
+
+      {session?.user ? (
+        <div className="ie-userMobile p-1 xl:hidden">
+          <span className="flex flex-col items-center rounded-md bg-gray-50 px-3 py-2">
+            <button type="button" onClick={signOut} 
+              className="outline_btn"
+            >
+              <ArrowLeftOnRectangleIcon className="h-5 stroke-gray-700 stroke-2 group-hover:stroke-red-700" />
+            </button>
+                
+          </span>
+        </div>
+      ) : (
+        <div className="ie-userMobile p-1 xl:hidden">
+          <span className="flex flex-col items-center rounded-md bg-gray-50 px-3 py-2">
+            <button type="button" onClick={signIn} 
+              className="outline_btn"
+            >
+              <ArrowLeftOnRectangleIcon className="h-5 stroke-gray-700 stroke-2 group-hover:stroke-red-700" />
+            </button>
+                
+          </span>
+        </div>
+        )}
     </div>
+    
   );
 }
 
