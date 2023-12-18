@@ -24,14 +24,14 @@ const EmptyState = () => (
       <div className='flex justify-center items-center mt-6'>
         <Button
           className={
-            'rounded-none text-white bg-blue-500 border border-blue-500 hover:bg-dark-blue hover:border-dark-blue font-medium'
+            'rounded text-white bg-blue-500 border border-blue-500 hover:bg-dark-blue hover:border-dark-blue font-medium'
           }
           path='/'
         >
           <div className='mr-[10px]'>
             {/* <BoxedAddIcon /> */}
           </div>
-          Add monitors
+          Add Students
         </Button>
         <div className='mr-[14px]'></div>
         <Button

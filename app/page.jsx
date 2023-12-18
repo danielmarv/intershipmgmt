@@ -13,9 +13,10 @@ const CreateStudent = () => {
     useEffect(() => {
         if (successMessage) {
             alert(successMessage);
+            router.push('/tracking');
             const timeout = setTimeout(() => {
-                setSuccessMessage(`Registration successful! Your registration number is <br>
-                ${data.regNo} and i's the on you will use to track your internship status.`);
+                setSuccessMessage('Registration successful! Your registration number is' +
+                formData.regNo + ' and is the on you will use to track your internship status.');
                 setFormData({
                     fullName: '',
                     campusName: '',
@@ -73,11 +74,10 @@ const CreateStudent = () => {
 
                 })
             })
-            if (response.ok) {
-                const data = await response.json();
-    
-                setSuccessMessage(`Registration successful! Your registration number is <br>
-                ${data.regNo} and i's the on you will use to track your internship status.`);
+            if (response.ok) {    
+                setSuccessMessage('Registration successful! Your registration number is' +
+                formData.regNo + ' and is the on you will use to track your internship status.');
+                router.push('/tracking');
             }
         } catch (error) {
             console.log(error)
@@ -88,9 +88,9 @@ const CreateStudent = () => {
 
     return (
         <>
-            {successMessage && (
+            {/* {successMessage && (
                 <div style={{ color: 'green' }}>{successMessage}</div>
-            )}
+            )} */}
             <Form 
                 type="Register"
                 formData={formData}
