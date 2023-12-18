@@ -14,11 +14,12 @@ const EmptyState = () => (
     />
     <div className='flex flex-col justify-center text-center mt-10'>
       <h4 className='text-xl font-normal mb-6'>
-        This is where you will monitor all Students Activities
+        This shows that either the data collection is taking time to load or
+        refusing to load
       </h4>
       <div>
         <p className='text-grey-300 text-sm font-light'>
-          You can you can edit, update, delete and add new students
+          You can add a new student in if need be!!
         </p>
       </div>
       <div className='flex justify-center items-center mt-6'>
