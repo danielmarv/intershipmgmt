@@ -45,7 +45,8 @@ const  NewAdmission = ({type, formData, setFormData, submitting,  handleSubmit, 
                   <option value="Main">Main Campus</option>
                   <option value="Kampala">Kampala Campus</option>
                   <option value="Arua">Arua Campus</option>
-                  <option value="Kabaale">Kabaale Campus</option>
+                  <option value="Kasese">Kasese Campus</option>
+                  <option value="Mbale">Mbale Campus</option>
                 </select>
             </div>
 </div>   
