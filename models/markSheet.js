@@ -19,7 +19,9 @@ const markSheetSchema = new Schema({
     type: Date,
     required: true,
   },
-});
+},
+{ timestamps: true }
+);
 
 const MarkSheet = models.MarkSheet || model('MarkSheet', markSheetSchema);
 

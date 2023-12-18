@@ -71,7 +71,9 @@ const StudentSchema = new Schema({
         },
     ],
 
-});
+},
+{ timestamps: true }
+);
 
 const Student = models.Prompt || model('Student', StudentSchema);
 

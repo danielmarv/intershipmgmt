@@ -5,7 +5,7 @@ export const GET = async (request) => {
     try {
         await connectedToDB();
 
-        const students = await Student.find({});
+        const students = await Student.find({}).sort({ createdAt: -1 });
 
         const jsonResponse = JSON.stringify(students);
         const headers = {

@@ -24,7 +24,7 @@ const EmptyState = () => (
       <div className='flex justify-center items-center mt-6'>
         <Button
           className={
-            'rounded-none text-white bg-blue-500 border border-blue-500 hover:bg-dark-blue hover:border-dark-blue font-medium'
+            'rounded text-white bg-blue-500 border border-blue-500 hover:bg-dark-blue hover:border-dark-blue font-medium'
           }
           path='/'
         >
