@@ -66,7 +66,7 @@ const CreateStudent = () => {
               <label
                 className=" text-lg  font-medium text-gray-600"
               >
-                Full Name
+                Username
               </label>
               <input
                 required
@@ -82,7 +82,7 @@ const CreateStudent = () => {
               <label
                 className=" text-lg font-medium text-gray-600"
               >
-                School Name
+                Password
               </label>
               <input
                 type="text"
