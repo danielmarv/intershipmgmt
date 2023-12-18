@@ -10,7 +10,9 @@ const AdminUserSchema = new Schema({
     type: String,
     required: true,
   },
-});
+},
+{ timestamps: true }
+);
 
 const AdminUser = models.AdminUser || model('AdminUser', AdminUserSchema);
 

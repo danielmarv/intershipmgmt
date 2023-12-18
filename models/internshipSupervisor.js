@@ -20,8 +20,10 @@ const internshipSupervisorSchema = new Schema({
       ref: 'Student',
     },
   ],
-});
+},
+{ timestamps: true }
+);
 
-const InternshipSupervisor = model.InternshipSupervisor || model('InternshipSupervisor', internshipSupervisorSchema);
+const InternshipSupervisor = models.InternshipSupervisor || model('InternshipSupervisor', internshipSupervisorSchema);
 
 export default InternshipSupervisor;
