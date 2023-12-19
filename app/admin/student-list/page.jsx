@@ -1,5 +1,3 @@
-"use client";
-
 import React, { useState, useEffect } from "react";
 import HeaderNav from '@components/Layout/header';
 import Button from '@components/Button';
@@ -7,35 +5,45 @@ import ContentBox from '@components/ContentBox';
 import Table from '@components/Table';
 import Toast from '@components/Toast';
 import EmptyState from '@components/EmptyState';
-const Students = () => {
-    const [isLoading, setIsLoading] = useState(false);
-    const [isError, setIsError] = useState(false);
 
+const Students = () => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState(false);
   const [allStudents, setAllStudents] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const studentsPerPage = 10;
 
   const fetchStudents = async () => {
-    setIsLoading(true)
+    setIsLoading(true);
 
     try {
-        const response = await fetch("/api/student");
-        
-        if (!response.ok) {
-            throw new Error(`Failed to fetch student data: ${response.status} ${response.statusText}`);
-        }
+      const response = await fetch("/api/student");
+      
+      if (!response.ok) {
+        throw new Error(`Failed to fetch student data: ${response.status} ${response.statusText}`);
+      }
 
-        const data = await response.json();
-
-        setAllStudents(data);
+      const data = await response.json();
+      setAllStudents(data);
     } catch (error) {
-        console.error('Error fetching student data:', error);
+      console.error('Error fetching student data:', error);
+      setIsError(true);
     } finally {
-        setIsLoading(false);
+      setIsLoading(false);
     }
   };
 
   useEffect(() => {
     fetchStudents();
   }, []);  
+
+  // Calculate the index range for the current page
+  const indexOfLastStudent = currentPage * studentsPerPage;
+  const indexOfFirstStudent = indexOfLastStudent - studentsPerPage;
+  const currentStudents = allStudents.slice(indexOfFirstStudent, indexOfLastStudent);
+
+  // Change page
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
     <>
@@ -76,68 +84,68 @@ const Students = () => {
         {allStudents && allStudents.length > 0 ? (
           <div className="rounded-sm border border-stroke bg-white px-5 pt-6 pb-2.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
             <div className="max-w-full overflow-x-auto">
-            <table className="w-full table-auto">
-              <thead>
-                <tr className="bg-gray-2 text-left dark:bg-meta-4">
-                  <th className="min-w-[150px] py-4 px-4 font-medium text-black xl:pl-11">
-                    Name
-                  </th>
-                  <th  className="min-w-[220px] py-4 px-4 font-medium text-black dark:text-white">
-                  Campus
-                  </th>
-                  <th className="min-w-[220px] py-4 px-4 font-medium text-black dark:text-white ">
-                  Reg No.
-                  </th>
-                  <th className="min-w-[220px] py-4 px-4 font-medium text-black dark:text-white ">
-                  School
-                  </th>
-                  <th className="min-w-[220px] py-4 px-4 font-medium text-black dark:text-white ">
-                  Near Town
-                  </th>
-                  <th className="min-w-[220px] py-4 px-4 font-medium text-black dark:text-white ">
-                  Phone No.
-                  </th>
-                  <th className="py-4 px-4 font-medium text-black dark:text-white">
-                    Actions
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {allStudents.map((student, index) => (
-                  <tr key={index} >
-                    <td className="border-b border-[#eee] py-5 px-4 pl-9 dark:border-strokedark xl:pl-11">
-                      <h5 className="font-medium text-black dark:text-white">
-                        {student.fullName}
-                      </h5>
-                    </td>
-                    <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
+              <table className="w-full table-auto">
+                <thead>
+                  <tr className="bg-gray-2 text-left dark:bg-meta-4">
+                    <th className="min-w-[150px] py-4 px-4 font-medium text-black xl:pl-11">
+                      Name
+                    </th>
+                    <th  className="min-w-[220px] py-4 px-4 font-medium text-black dark:text-white">
+                    Campus
+                    </th>
+                    <th className="min-w-[220px] py-4 px-4 font-medium text-black dark:text-white ">
+                    Reg No.
+                    </th>
+                    <th className="min-w-[220px] py-4 px-4 font-medium text-black dark:text-white ">
+                    School
+                    </th>
+                    <th className="min-w-[220px] py-4 px-4 font-medium text-black dark:text-white ">
+                    Near Town
+                    </th>
+                    <th className="min-w-[220px] py-4 px-4 font-medium text-black dark:text-white ">
+                    Phone No.
+                    </th>
+                    <th className="py-4 px-4 font-medium text-black dark:text-white">
+                      Actions
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {currentStudents.map((student, index) => (
+                    <tr key={index}>
+                      <td className="border-b border-[#eee] py-5 px-4 pl-9 dark:border-strokedark xl:pl-11">
+                        <h5 className="font-medium text-black dark:text-white">
+                          {student.fullName}
+                        </h5>
+                      </td>
+                      <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                       <h5 className="font-medium text-black dark:text-white">
                         {student.campusName}
                       </h5>
-                    </td>
-                    <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                      <h5 className="font-medium text-black dark:text-white">
-                        {student.regNo}
-                      </h5>
-                    </td>
-                    <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                      <h5 className="font-medium text-black dark:text-white">
-                        {student.schoolName}
-                      </h5>
-                    </td>
-                    <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                      <h5 className="font-medium text-black dark:text-white">
-                        {student.townName}
-                      </h5>
-                    </td>
-                    <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                      <h5 className="font-medium text-black dark:text-white">
-                        {student.phoneNum}
-                      </h5>
-                    </td>
-                    <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                      <div className="flex items-center space-x-3.5">
-                        <button className="hover:text-primary">
+                        </td>
+                        <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
+                        <h5 className="font-medium text-black dark:text-white">
+                            {student.regNo}
+                        </h5>
+                        </td>
+                        <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
+                        <h5 className="font-medium text-black dark:text-white">
+                            {student.schoolName}
+                        </h5>
+                        </td>
+                        <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
+                        <h5 className="font-medium text-black dark:text-white">
+                            {student.townName}
+                        </h5>
+                        </td>
+                        <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
+                        <h5 className="font-medium text-black dark:text-white">
+                            {student.phoneNum}
+                        </h5>
+                        </td>
+                      <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
+                        <div className="flex items-center space-x-3.5">
+                          <button className="hover:text-primary">
                           <svg
                             className="fill-current"
                             width="18"
@@ -155,8 +163,8 @@ const Students = () => {
                               fill=""
                             />
                           </svg>
-                        </button>
-                        <button className="hover:text-primary">
+                          </button>
+                          <button className="hover:text-primary">
                           <svg
                             className="fill-current"
                             width="18"
@@ -202,13 +210,27 @@ const Students = () => {
                             />
                           </svg>
                         </button>
-                      </div>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            {/* Pagination buttons */}
+            <div className="flex justify-center mt-4">
+              {Array.from({ length: Math.ceil(allStudents.length / studentsPerPage) }, (_, i) => (
+                <Button
+                  key={i}
+                  onClick={() => paginate(i + 1)}
+                  className={`mx-1 ${
+                    i + 1 === currentPage ? 'bg-blue-500 text-white' : 'bg-white text-black-600'
+                  } border border-blue-500 hover:bg-dark-blue hover:border-dark-blue font-medium text-sm`}
+                >
+                  {i + 1}
+                </Button>
+              ))}
+            </div>
           </div>
         ) : (
           <EmptyState />
