@@ -4,10 +4,10 @@ import React, { useState, useEffect } from "react";
 import HeaderNav from '@components/Layout/header';
 import Button from '@components/Button';
 import ContentBox from '@components/ContentBox';
+import axios from 'axios';
 import Table from '@components/Table';
 import Toast from '@components/Toast';
 import EmptyState from '@components/EmptyState';
-import { fetchStudentData } from "@lib/Students";
 const Students = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
@@ -18,7 +18,15 @@ const Students = () => {
     setIsLoading(true)
 
     try {
-        const response = await fetchStudentData();
+        const response = await axios.get("/api/student", {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'Cache-Control': 'no-cache, no-store, must-revalidate',
+            'Pragma': 'no-cache',
+            'Expires': '0',
+          },
+        });
         
         if (!response.ok) {
             throw new Error(`Failed to fetch student data: ${response.status} ${response.statusText}`);
