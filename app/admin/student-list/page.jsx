@@ -17,7 +17,15 @@ const Students = () => {
     setIsLoading(true)
 
     try {
-        const response = await fetch("/api/student");
+        const response = await fetch("/api/student", {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'Cache-Control': 'no-cache, no-store, must-revalidate',
+            'Pragma': 'no-cache',
+            'Expires': '0',
+          },
+        });
         
         if (!response.ok) {
             throw new Error(`Failed to fetch student data: ${response.status} ${response.statusText}`);
