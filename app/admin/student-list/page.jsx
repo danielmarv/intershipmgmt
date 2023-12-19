@@ -8,16 +8,24 @@ import Table from '@components/Table';
 import Toast from '@components/Toast';
 import EmptyState from '@components/EmptyState';
 const Students = () => {
-    const [isLoading, setIsLoading] = useState(false);
-    const [isError, setIsError] = useState(false);
-
+  const [isLoading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState(false);
+  const [refreshInterval, setRefreshInterval] = useState(60000); // Set the refresh interval in milliseconds (e.g., 60000 ms = 1 minute)
   const [allStudents, setAllStudents] = useState([]);
 
   const fetchStudents = async () => {
     setIsLoading(true)
 
     try {
-        const response = await fetch("/api/student");
+        const response = await fetch("/api/student", {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'Cache-Control': 'no-cache, no-store, must-revalidate',
+            'Pragma': 'no-cache',
+            'Expires': '0',
+          },
+        });
         
         if (!response.ok) {
             throw new Error(`Failed to fetch student data: ${response.status} ${response.statusText}`);
@@ -37,6 +45,26 @@ const Students = () => {
     fetchStudents();
   }, []);  
 
+  useEffect(() => {
+    const fetchData = async () => {
+      await fetchStudents();
+    };
+
+    // Initial data fetch
+    fetchData();
+
+    // Set up the interval for periodic data fetch
+    const intervalId = setInterval(fetchData, refreshInterval);
+
+    // Clean up the interval on component unmount
+    return () => clearInterval(intervalId);
+  }, [refreshInterval]);
+
+  const handleRefreshClick = () => {
+    // Manually trigger a refresh on button click
+    fetchStudents();
+  };
+
   return (
     <>
       <HeaderNav category={'Administration'} component={'Student List'}>
@@ -51,14 +79,10 @@ const Students = () => {
           (allStudents && (
             <div className='flex'>
               <Button
-                className={
-                  'bg-white text-black-600 border border-black-600 opacity-30 hover:cursor-not-allowed font-medium text-sm'
-                }
+                className="rounded text-white bg-green-500 border border-green-500 hover:bg-dark-green hover:border-dark-green font-medium text-sm"
+                onClick={handleRefreshClick}
               >
-                <div className='mr-[10px]'>
-                  {/* <UploadIcon /> */}
-                </div>
-                Administration
+                Refresh
               </Button>
               <div className='mr-[14px]'></div>
               <Button

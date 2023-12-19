@@ -6,12 +6,13 @@ export const connectedToDB = async () => {
     mongoose.set('strictQuery', true);
   if (isConnected) {
     console.log("=> MongoDB is already connected");
+    await mongoose.disconnect();
     return;
   }
 
   try {
     await mongoose.connect(process.env.MONGODB_URI, {
-        dbName: process.env.DB_NAME,
+      dbName: process.env.DB_NAME,
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
