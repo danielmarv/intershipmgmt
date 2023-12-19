@@ -94,6 +94,9 @@ const Students = () => {
                   <th className="min-w-[220px] py-4 px-4 font-medium text-black dark:text-white ">
                   Near Town
                   </th>
+                  <th className="min-w-[220px] py-4 px-4 font-medium text-black dark:text-white ">
+                  Phone No.
+                  </th>
                   <th className="py-4 px-4 font-medium text-black dark:text-white">
                     Actions
                   </th>
@@ -125,6 +128,11 @@ const Students = () => {
                     <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                       <h5 className="font-medium text-black dark:text-white">
                         {student.townName}
+                      </h5>
+                    </td>
+                    <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
+                      <h5 className="font-medium text-black dark:text-white">
+                        {student.phoneNum}
                       </h5>
                     </td>
                     <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
