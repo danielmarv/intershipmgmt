@@ -83,10 +83,16 @@ const Students = () => {
                     Name
                   </th>
                   <th  className="min-w-[220px] py-4 px-4 font-medium text-black dark:text-white">
-                  Email
+                  Campus
                   </th>
                   <th className="min-w-[220px] py-4 px-4 font-medium text-black dark:text-white ">
                   Reg No.
+                  </th>
+                  <th className="min-w-[220px] py-4 px-4 font-medium text-black dark:text-white ">
+                  School
+                  </th>
+                  <th className="min-w-[220px] py-4 px-4 font-medium text-black dark:text-white ">
+                  Near Town
                   </th>
                   <th className="py-4 px-4 font-medium text-black dark:text-white">
                     Actions
@@ -103,12 +109,22 @@ const Students = () => {
                     </td>
                     <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                       <h5 className="font-medium text-black dark:text-white">
-                        {student.emailId}
+                        {student.campusName}
                       </h5>
                     </td>
                     <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                       <h5 className="font-medium text-black dark:text-white">
                         {student.regNo}
+                      </h5>
+                    </td>
+                    <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
+                      <h5 className="font-medium text-black dark:text-white">
+                        {student.schoolName}
+                      </h5>
+                    </td>
+                    <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
+                      <h5 className="font-medium text-black dark:text-white">
+                        {student.townName}
                       </h5>
                     </td>
                     <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
