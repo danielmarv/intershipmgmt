@@ -7,6 +7,7 @@ import ContentBox from '@components/ContentBox';
 import Table from '@components/Table';
 import Toast from '@components/Toast';
 import EmptyState from '@components/EmptyState';
+import { fetchStudentData } from "@lib/Students";
 const Students = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
@@ -17,15 +18,7 @@ const Students = () => {
     setIsLoading(true)
 
     try {
-        const response = await fetch("/api/student", {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-            'Cache-Control': 'no-cache, no-store, must-revalidate',
-            'Pragma': 'no-cache',
-            'Expires': '0',
-          },
-        });
+        const response = await fetchStudentData();
         
         if (!response.ok) {
             throw new Error(`Failed to fetch student data: ${response.status} ${response.statusText}`);
