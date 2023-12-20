@@ -1,12 +1,11 @@
 import { connectedToDB } from '@utils/database';
-import InternshipSupervisor from '@models/internshipSupervisor';
+import Supervisor from '@models/internshipSupervisor';
 
 export const GET = async (req) => {
 
     try {
         connectedToDB();
-
-        const supervisors = await InternshipSupervisor.find({}).sort({ createdAt: -1 });
+        const supervisors = await Supervisor.find({}).sort({ createdAt: -1 });
 
         return new Response(JSON.stringify(supervisors), { status: 200})
     } catch (error) {

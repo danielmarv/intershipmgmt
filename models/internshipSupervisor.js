@@ -1,6 +1,6 @@
 import { Schema, model, models } from 'mongoose';
 
-const internshipSupervisorSchema = new Schema({
+const SupervisorSchema = new Schema({
   fullName: {
     type: String,
     required: true,
@@ -11,7 +11,7 @@ const internshipSupervisorSchema = new Schema({
   },
   assignedStudents: [
     {
-      type: mongoose.Schema.Types.ObjectId,
+      type: Schema.Types.ObjectId,
       ref: 'Student',
     },
   ],
@@ -19,6 +19,6 @@ const internshipSupervisorSchema = new Schema({
 { timestamps: true }
 );
 
-const InternshipSupervisor = models.InternshipSupervisor || model('InternshipSupervisor', internshipSupervisorSchema);
+const Supervisor = models.InternshipSupervisor || model('Supervisor', SupervisorSchema);
 
-export default InternshipSupervisor;
+export default Supervisor;

@@ -2,12 +2,12 @@ import { Schema, model, models } from 'mongoose';
 
 const markSheetSchema = new Schema({
   student: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: Schema.Types.ObjectId,
     ref: 'Student',
     required: true,
   },
   supervisor: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: Schema.Types.ObjectId,
     ref: 'InternshipSupervisor',
     required: true,
   },
