@@ -11,8 +11,9 @@ export const POST = async (req) => {
       });
 
       const savedSupervisor = await newSupervisor.save();
-
-      res.status(201).json(savedSupervisor);
+      return new Response(JSON.stringify(savedSupervisor), {
+        status: 201,
+    });
     } catch (error) {
       console.error(error);
       res.status(500).json({ error: 'Internal Server Error' });

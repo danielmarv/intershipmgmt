@@ -10,6 +10,7 @@ import EmptyState from '@components/EmptyState';
 import Modal from 'react-modal';
 
 const SignUpModal = ({ isOpen, onClose }) => {
+  const [submitting, setSubmitting] = useState();
   const [formData, setFormData] = useState({
     fullname: '',
     email: '',
@@ -20,10 +21,28 @@ const SignUpModal = ({ isOpen, onClose }) => {
   
 
 
-  const handleCreate = (e) => {
+  const handleCreate = async (e) => {
     e.preventDefault();
-    console.log('Form submitted:', { fullName, district });
-    onClose(); 
+    setSubmitting(true)
+
+    try {
+      const response = await fetch('/api/supervisor/new', {
+        method: 'POST',
+        body: JSON.stringify({
+          fullName: formData.fullName,
+          district: formData.district,
+        })
+      })
+      if (response.ok) {
+        setSuccessMessage('Supervisor created successfully!');
+      }
+    } catch (error) {
+      console.log(error)
+    } finally {
+      setSubmitting(false);
+      onClose();
+    }
+     
   };
 
   return (
