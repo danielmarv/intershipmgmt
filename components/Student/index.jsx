@@ -18,7 +18,7 @@ const Students = () => {
     setIsLoading(true)
 
     try {
-        const response = await axios.get("/api/student", {
+        const response = await fetch("/api/student", {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
