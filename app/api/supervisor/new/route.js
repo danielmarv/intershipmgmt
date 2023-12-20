@@ -2,16 +2,19 @@ import InternshipSupervisor from '@models/internshipSupervisor';
 import { connectedToDB } from '@utils/database';
 
 export const POST = async (req) => {
+  const {
+    fullName,
+    district 
+  } = await req.json();
     try {
       await connectedToDB();
-      const { fullName, district } = req.body;
       const newSupervisor = new InternshipSupervisor({
         fullName,
         district,
       });
 
-      const savedSupervisor = await newSupervisor.save();
-      return new Response(JSON.stringify(savedSupervisor), {
+      await newSupervisor.save();
+      return new Response(JSON.stringify(newSupervisor), {
         status: 201,
     });
     } catch (error) {
