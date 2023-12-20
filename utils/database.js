@@ -17,13 +17,6 @@ export const connectedToDB = async () => {
     });
     isConnected = true;
     console.log("=> MongoDB is connected");
-
-    const disconnectDelay = 60000; 
-    setTimeout(async () => {
-      await mongoose.connection.close();
-      isConnected = false;
-      console.log("=> MongoDB is disconnected");
-    }, disconnectDelay);
   } catch (error) {
     console.log("=> MongoDB connection error:", error);
   }
