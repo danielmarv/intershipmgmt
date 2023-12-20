@@ -9,10 +9,6 @@ const internshipSupervisorSchema = new Schema({
     type: String,
     required: true,
   },
-  // password: {
-  //   type: String,
-  //   required: true,
-  // },
   assignedStudents: [
     {
       type: mongoose.Schema.Types.ObjectId,
