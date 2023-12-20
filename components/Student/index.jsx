@@ -4,8 +4,6 @@ import React, { useState, useEffect } from "react";
 import HeaderNav from '@components/Layout/header';
 import Button from '@components/Button';
 import ContentBox from '@components/ContentBox';
-import axios from 'axios';
-import Table from '@components/Table';
 import Toast from '@components/Toast';
 import EmptyState from '@components/EmptyState';
 const Students = () => {
@@ -51,18 +49,13 @@ const Students = () => {
       await fetchStudents();
     };
 
-    // Initial data fetch
     fetchData();
-
-    // Set up the interval for periodic data fetch
     const intervalId = setInterval(fetchData, refreshInterval);
 
-    // Clean up the interval on component unmount
     return () => clearInterval(intervalId);
   }, [refreshInterval]);
 
   const handleRefreshClick = () => {
-    // Manually trigger a refresh on button click
     fetchStudents();
   };
 
