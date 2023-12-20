@@ -3,7 +3,7 @@ import { connectedToDB } from '@utils/database';
 
 export const POST = async (req) => {
     try {
-        connectedToDB()
+      await connectedToDB()
       const { fullName, district } = req.body;
       const newSupervisor = new InternshipSupervisor({
         fullName,

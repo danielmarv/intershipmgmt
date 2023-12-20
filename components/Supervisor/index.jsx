@@ -94,6 +94,7 @@ const SignUpModal = ({ isOpen, onClose }) => {
 
 
 const Supervisor = () => {
+  const [allSupervisors, setAllSupervisors] = useState();
 
   const [isSignUpModalOpen, setIsSignUpModalOpen] = useState(false);
 
@@ -104,6 +105,31 @@ const Supervisor = () => {
   const handleCloseSignUpModal = () => {
     setIsSignUpModalOpen(false);
   };
+
+  const fetchSupervisors = async () => {
+    setIsLoading(true)
+
+    try {
+        const response = await fetch("/api/supervisor");
+        
+        if (!response.ok) {
+            throw new Error(`Failed to fetch student data: ${response.status} ${response.statusText}`);
+        }
+
+        const data = await response.json();
+
+        setAllSupervisors(data);
+    } catch (error) {
+        console.error('Error fetching student data:', error);
+    } finally {
+        setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchSupervisors();
+  }, []);  
+
 
   return (
     <>
@@ -165,7 +191,7 @@ const Supervisor = () => {
                     </td>
                     <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                       <h5 className="font-medium text-black dark:text-white">
-                        {supervisor.emailId}
+                        {supervisor.district}
                       </h5>
                     </td>
                     <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
