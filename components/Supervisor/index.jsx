@@ -143,7 +143,6 @@ const Supervisor = () => {
             message={'Uh-oh! Server error. Please try again later.'}
           />
         )}
-          (allStudents && (
             <div className='flex'>
               <Button
                 className="rounded text-white bg-green-500 border border-green-500 hover:bg-dark-green hover:border-dark-green font-medium text-sm"
@@ -162,7 +161,6 @@ const Supervisor = () => {
                 Home
               </Button>
             </div>
-          ))
       </HeaderNav>
       <ContentBox>
         {allSupervisors && allSupervisors.length > 0 ? (
