@@ -12,10 +12,7 @@ import Modal from 'react-modal';
 const SignUpModal = ({ isOpen, onClose }) => {
   const [submitting, setSubmitting] = useState();
   const [formData, setFormData] = useState({
-    fullname: '',
-    email: '',
-    password: '',
-    retypePassword: '',
+    fullName: '',
     district: '',
   });
   
@@ -47,48 +44,49 @@ const SignUpModal = ({ isOpen, onClose }) => {
 
   return (
     <Modal
-      isOpen={isOpen}
-      onRequestClose={onClose}
-      contentLabel="Sign Up Modal"
-      className="Modal bg-white p-6 rounded shadow-default dark:bg-boxdark"
-      overlayClassName="Overlay fixed top-0 left-0 right-0 bottom-0 bg-black bg-opacity-50 flex justify-center items-center"
-    >
-      <div>
-        <h2 className="text-xl font-medium mb-4">Create Supervisor</h2>
-        <form onSubmit={handleCreate}>
-          {/* Full Name Input */}
-          <div className="mb-4.5">
-            <label className="mb-2.5 block text-black dark:text-white">Full Name</label>
-            <input
-              type="text"
-              value={formData.fullname}
-              onChange={(e) => setFormData({ ...formData, fullname: e.target.value })}
-              placeholder="Enter your full name"
-              className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
-            />
-          </div>
-
-          {/* District Input */}
-          <div className="mb-4.5">
-            <label className="mb-2.5 block text-black dark:text-white">District</label>
-            <input
-              type="text"
-              value={formData.district}
-              onChange={(e) => setFormData({ ...formData, district: e.target.value })}
-              placeholder="Enter your district"
-              className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
-            />
-          </div>
-          {/* Submit Button */}
-          <button
-            type="submit"
-            className="flex w-full justify-center rounded bg-primary p-3 font-medium text-gray"
-          >
-            Create
-          </button>
-        </form>
-      </div>
-    </Modal>
+    isOpen={isOpen}
+    onRequestClose={onClose}
+    contentLabel="Sign Up Modal"
+    className="Modal bg-white p-8 rounded-xl shadow-2xl dark:bg-boxdark"
+    overlayClassName="Overlay fixed top-0 left-0 right-0 bottom-0 bg-black bg-opacity-50 flex justify-center items-center"
+  >
+    <div className="max-w-lg w-full">
+      <h2 className="text-2xl font-bold mb-6 text-primary">Create Supervisor</h2>
+      <form onSubmit={handleCreate}>
+        {/* Full Name Input */}
+        <div className="mb-6">
+          <label className="mb-2 block text-black dark:text-white">Full Name</label>
+          <input
+            type="text"
+            value={formData.fullName}
+            onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
+            placeholder="Enter your full name"
+            className="w-full rounded border-2 border-primary bg-transparent py-3 px-4 font-medium outline-none transition focus:border-secondary dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
+          />
+        </div>
+  
+        {/* District Input */}
+        <div className="mb-6">
+          <label className="mb-2 block text-black dark:text-white">District</label>
+          <input
+            type="text"
+            value={formData.district}
+            onChange={(e) => setFormData({ ...formData, district: e.target.value })}
+            placeholder="Enter your district"
+            className="w-full rounded border-2 border-primary bg-transparent py-3 px-4 font-medium outline-none transition focus:border-secondary dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
+          />
+        </div>
+        {/* Submit Button */}
+        <button
+          type="submit"
+          className="w-full bg-blue-500 text-white py-2 rounded-md font-medium transition hover:bg-secondary focus:outline-none focus:ring focus:border-secondary"
+        >
+          Create
+        </button>
+      </form>
+    </div>
+  </Modal>
+  
   );
 };
 

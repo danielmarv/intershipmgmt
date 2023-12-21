@@ -19,6 +19,6 @@ const SupervisorSchema = new Schema({
 { timestamps: true }
 );
 
-const Supervisor = models.InternshipSupervisor || model('Supervisor', SupervisorSchema);
+const Supervisor = models.Supervisor || model('Supervisor', SupervisorSchema);
 
 export default Supervisor;

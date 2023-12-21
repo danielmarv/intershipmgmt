@@ -2,12 +2,12 @@ import Supervisor from '@models/internshipSupervisor';
 import { connectedToDB } from '@utils/database';
 
 export const POST = async (req) => {
-  const {
-    fullName,
-    district 
-  } = await req.json();
     try {
       await connectedToDB();
+      const {
+        fullName,
+        district 
+      } = await req.json();
       const newSupervisor = new Supervisor({
         fullName,
         district,
@@ -18,7 +18,7 @@ export const POST = async (req) => {
         status: 201,
       });
     } catch (error) {
-      return new Response(JSON.stringify({ error: 'Internal Server Error' }), {
+      return new Response(JSON.stringify('Internal Server Error', error), {
         status: 500,
       });
     }
