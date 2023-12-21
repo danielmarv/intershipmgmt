@@ -97,7 +97,6 @@ const Supervisor = () => {
   const [allSupervisors, setAllSupervisors] = useState();
   const [isError, setIsError] = useState();
   const [isLoading, setIsLoading] = useState(false)
-
   const [isSignUpModalOpen, setIsSignUpModalOpen] = useState(false);
 
   const handleOpenSignUpModal = () => {
@@ -144,7 +143,6 @@ const Supervisor = () => {
             message={'Uh-oh! Server error. Please try again later.'}
           />
         )}
-        {isLoading ||
           (allStudents && (
             <div className='flex'>
               <Button
@@ -164,7 +162,7 @@ const Supervisor = () => {
                 Home
               </Button>
             </div>
-          ))}
+          ))
       </HeaderNav>
       <ContentBox>
         {allSupervisors && allSupervisors.length > 0 ? (
