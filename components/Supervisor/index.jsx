@@ -95,7 +95,8 @@ const SignUpModal = ({ isOpen, onClose }) => {
 
 const Supervisor = () => {
   const [allSupervisors, setAllSupervisors] = useState();
-  const [isError, setIsError] = useState()
+  const [isError, setIsError] = useState();
+  const [isLoading, setIsLoading] = useState(false)
 
   const [isSignUpModalOpen, setIsSignUpModalOpen] = useState(false);
 
