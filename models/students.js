@@ -57,7 +57,7 @@ const StudentSchema = new Schema({
         {
             supervisor: {
                 type: Schema.Types.ObjectId,
-                ref: 'InternshipSupervisor',
+                ref: 'Supervisor',
                 required: true,
             },
             marks: {
@@ -75,6 +75,6 @@ const StudentSchema = new Schema({
 { timestamps: true }
 );
 
-const Student = models.Prompt || model('Student', StudentSchema);
+const Student = models.Student || model('Student', StudentSchema);
 
 export default Student;

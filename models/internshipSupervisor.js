@@ -1,22 +1,17 @@
 import { Schema, model, models } from 'mongoose';
 
-const internshipSupervisorSchema = new Schema({
+const SupervisorSchema = new Schema({
   fullName: {
     type: String,
     required: true,
   },
-  // username: {
-  //   type: String,
-  //   required: true,
-  //   unique: true,
-  // },
-  // password: {
-  //   type: String,
-  //   required: true,
-  // },
+  district: {
+    type: String,
+    required: true,
+  },
   assignedStudents: [
     {
-      type: mongoose.Schema.Types.ObjectId,
+      type: Schema.Types.ObjectId,
       ref: 'Student',
     },
   ],
@@ -24,6 +19,6 @@ const internshipSupervisorSchema = new Schema({
 { timestamps: true }
 );
 
-const InternshipSupervisor = models.InternshipSupervisor || model('InternshipSupervisor', internshipSupervisorSchema);
+const Supervisor = models.Supervisor || model('Supervisor', SupervisorSchema);
 
-export default InternshipSupervisor;
+export default Supervisor;

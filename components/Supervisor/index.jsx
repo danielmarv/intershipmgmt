@@ -6,25 +6,110 @@ import Button from '@components/Button';
 import ContentBox from '@components/ContentBox';
 import Toast from '@components/Toast';
 import EmptyState from '@components/EmptyState';
-const Students = () => {
-  const [isLoading, setIsLoading] = useState(false);
-  const [isError, setIsError] = useState(false);
-  const [refreshInterval, setRefreshInterval] = useState(60000); // Set the refresh interval in milliseconds (e.g., 60000 ms = 1 minute)
-  const [allStudents, setAllStudents] = useState([]);
 
-  const fetchStudents = async () => {
+import Modal from 'react-modal';
+
+const SignUpModal = ({ isOpen, onClose }) => {
+  const [submitting, setSubmitting] = useState();
+  const [formData, setFormData] = useState({
+    fullName: '',
+    district: '',
+  });
+  
+
+
+  const handleCreate = async (e) => {
+    e.preventDefault();
+    setSubmitting(true)
+
+    try {
+      const response = await fetch('/api/supervisor/new', {
+        method: 'POST',
+        body: JSON.stringify({
+          fullName: formData.fullName,
+          district: formData.district,
+        })
+      })
+      if (response.ok) {
+        setSuccessMessage('Supervisor created successfully!');
+      }
+    } catch (error) {
+      console.log(error)
+    } finally {
+      setSubmitting(false);
+      onClose();
+    }
+     
+  };
+
+  return (
+    <Modal
+    isOpen={isOpen}
+    onRequestClose={onClose}
+    contentLabel="Sign Up Modal"
+    className="Modal bg-white p-8 rounded-xl shadow-2xl dark:bg-boxdark"
+    overlayClassName="Overlay fixed top-0 left-0 right-0 bottom-0 bg-black bg-opacity-50 flex justify-center items-center"
+  >
+    <div className="max-w-lg w-full">
+      <h2 className="text-2xl font-bold mb-6 text-primary">Create Supervisor</h2>
+      <form onSubmit={handleCreate}>
+        {/* Full Name Input */}
+        <div className="mb-6">
+          <label className="mb-2 block text-black dark:text-white">Full Name</label>
+          <input
+            type="text"
+            value={formData.fullName}
+            onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
+            placeholder="Enter your full name"
+            className="w-full rounded border-2 border-primary bg-transparent py-3 px-4 font-medium outline-none transition focus:border-secondary dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
+          />
+        </div>
+  
+        {/* District Input */}
+        <div className="mb-6">
+          <label className="mb-2 block text-black dark:text-white">District</label>
+          <input
+            type="text"
+            value={formData.district}
+            onChange={(e) => setFormData({ ...formData, district: e.target.value })}
+            placeholder="Enter your district"
+            className="w-full rounded border-2 border-primary bg-transparent py-3 px-4 font-medium outline-none transition focus:border-secondary dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
+          />
+        </div>
+        {/* Submit Button */}
+        <button
+          type="submit"
+          className="w-full bg-blue-500 text-white py-2 rounded-md font-medium transition hover:bg-secondary focus:outline-none focus:ring focus:border-secondary"
+        >
+          Create
+        </button>
+      </form>
+    </div>
+  </Modal>
+  
+  );
+};
+
+
+const Supervisor = () => {
+  const [allSupervisors, setAllSupervisors] = useState();
+  const [isError, setIsError] = useState();
+  const [isLoading, setIsLoading] = useState(false)
+  const [isSignUpModalOpen, setIsSignUpModalOpen] = useState(false);
+
+  const handleOpenSignUpModal = () => {
+    setIsSignUpModalOpen(true);
+  };
+
+  const handleCloseSignUpModal = () => {
+    setIsSignUpModalOpen(false);
+  };
+
+  const fetchSupervisors = async () => {
     setIsLoading(true)
 
     try {
-        const response = await fetch("/api/student", {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-            'Cache-Control': 'no-cache, no-store, must-revalidate',
-            'Pragma': 'no-cache',
-            'Expires': '0',
-          },
-        });
+        const response = await fetch("/api/supervisor");
         
         if (!response.ok) {
             throw new Error(`Failed to fetch student data: ${response.status} ${response.statusText}`);
@@ -32,36 +117,23 @@ const Students = () => {
 
         const data = await response.json();
 
-        setAllStudents(data);
+        setAllSupervisors(data);
     } catch (error) {
         console.error('Error fetching student data:', error);
+        setIsError(error);
     } finally {
         setIsLoading(false);
     }
   };
 
   useEffect(() => {
-    fetchStudents();
+    fetchSupervisors();
   }, []);  
 
-  useEffect(() => {
-    const fetchData = async () => {
-      await fetchStudents();
-    };
-
-    fetchData();
-    const intervalId = setInterval(fetchData, refreshInterval);
-
-    return () => clearInterval(intervalId);
-  }, [refreshInterval]);
-
-  const handleRefreshClick = () => {
-    fetchStudents();
-  };
 
   return (
     <>
-      <HeaderNav category={'Administration'} component={'Student List'}>
+      <HeaderNav category={'Administration'} component={'Supervisor List'}>
         {isError && (
           <Toast
             type={'error'}
@@ -69,15 +141,14 @@ const Students = () => {
             message={'Uh-oh! Server error. Please try again later.'}
           />
         )}
-        {isLoading ||
-          (allStudents && (
             <div className='flex'>
               <Button
                 className="rounded text-white bg-green-500 border border-green-500 hover:bg-dark-green hover:border-dark-green font-medium text-sm"
-                onClick={handleRefreshClick}
+                onClick={handleOpenSignUpModal}
               >
-                Refresh
+                Create Supervisor
               </Button>
+              <SignUpModal isOpen={isSignUpModalOpen} onClose={handleCloseSignUpModal} />
               <div className='mr-[14px]'></div>
               <Button
                 className={
@@ -88,10 +159,9 @@ const Students = () => {
                 Home
               </Button>
             </div>
-          ))}
       </HeaderNav>
       <ContentBox>
-        {allStudents && allStudents.length > 0 ? (
+        {allSupervisors && allSupervisors.length > 0 ? (
           <div className="rounded-sm border border-stroke bg-white px-5 pt-6 pb-2.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
             <div className="max-w-full overflow-x-auto">
             <table className="w-full table-auto">
@@ -101,10 +171,7 @@ const Students = () => {
                     Name
                   </th>
                   <th  className="min-w-[220px] py-4 px-4 font-medium text-black dark:text-white">
-                  Email
-                  </th>
-                  <th className="min-w-[220px] py-4 px-4 font-medium text-black dark:text-white ">
-                  Reg No.
+                    District
                   </th>
                   <th className="py-4 px-4 font-medium text-black dark:text-white">
                     Actions
@@ -112,21 +179,16 @@ const Students = () => {
                 </tr>
               </thead>
               <tbody>
-                {allStudents.map((student, index) => (
+                {allSupervisors.map((supervisor, index) => (
                   <tr key={index} >
                     <td className="border-b border-[#eee] py-5 px-4 pl-9 dark:border-strokedark xl:pl-11">
                       <h5 className="font-medium text-black dark:text-white">
-                        {student.fullName}
+                        {supervisor.fullName}
                       </h5>
                     </td>
                     <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                       <h5 className="font-medium text-black dark:text-white">
-                        {student.emailId}
-                      </h5>
-                    </td>
-                    <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                      <h5 className="font-medium text-black dark:text-white">
-                        {student.regNo}
+                        {supervisor.district}
                       </h5>
                     </td>
                     <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
@@ -209,7 +271,7 @@ const Students = () => {
         )}
       </ContentBox>
     </>
-  );
-};
+  )
+}
 
-export default Students;
+export default Supervisor;
