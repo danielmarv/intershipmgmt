@@ -95,6 +95,7 @@ const SignUpModal = ({ isOpen, onClose }) => {
 
 const Supervisor = () => {
   const [allSupervisors, setAllSupervisors] = useState();
+  const [isError, setIsError] = useState()
 
   const [isSignUpModalOpen, setIsSignUpModalOpen] = useState(false);
 
@@ -121,6 +122,7 @@ const Supervisor = () => {
         setAllSupervisors(data);
     } catch (error) {
         console.error('Error fetching student data:', error);
+        setIsError(error);
     } finally {
         setIsLoading(false);
     }
