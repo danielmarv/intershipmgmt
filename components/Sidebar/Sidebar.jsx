@@ -42,7 +42,7 @@ const  Sidebar = () => {
           <div className="flex flex-col items-center gap-3 p-1 xl:items-stretch xl:px-3">
             <SidebarItem label='DashBoard' Icon={HomeIcon} navPath='/admin'/>
             <SidebarItem label='Students' Icon={UserPlusIcon} navPath='/admin/student-list'/>
-            <SidebarItem label='Supervisors' Icon={UsersIcon} navPath='/admin'/>
+            <SidebarItem label='Supervisors' Icon={UsersIcon} navPath='/admin/supervisor'/>
             <SidebarItem label='Marks ASS' Icon={UsersIcon} navPath='/admin'/>
             {/* <SidebarItem label='' Icon={UsersIcon} navPath='/logout'/> */}
           </div>
