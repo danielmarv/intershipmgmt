@@ -1,23 +1,24 @@
 // MarkSheetForm.js
 
 import { useState, useEffect } from 'react';
+import Select from 'react-select';
 
 const MarkSheetForm = ({ students, supervisors, onSubmit }) => {
-  const [selectedStudent, setSelectedStudent] = useState('');
-  const [selectedSupervisor, setSelectedSupervisor] = useState('');
+  const [selectedStudent, setSelectedStudent] = useState(null);
+  const [selectedSupervisor, setSelectedSupervisor] = useState(null);
   const [marks, setMarks] = useState('');
 
   useEffect(() => {
     // Reset supervisor when selected student changes
-    setSelectedSupervisor('');
+    setSelectedSupervisor(null);
   }, [selectedStudent]);
 
-  const handleStudentChange = (e) => {
-    setSelectedStudent(e.target.value);
+  const handleStudentChange = (selectedOption) => {
+    setSelectedStudent(selectedOption);
   };
 
-  const handleSupervisorChange = (e) => {
-    setSelectedSupervisor(e.target.value);
+  const handleSupervisorChange = (selectedOption) => {
+    setSelectedSupervisor(selectedOption);
   };
 
   const handleMarksChange = (e) => {
@@ -26,42 +27,42 @@ const MarkSheetForm = ({ students, supervisors, onSubmit }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
     // Pass the selected values to the parent component for submission
     onSubmit({
-      student: selectedStudent,
-      supervisor: selectedSupervisor,
+      student: selectedStudent ? selectedStudent.value : null,
+      supervisor: selectedSupervisor ? selectedSupervisor.value : null,
       marks: marks,
     });
   };
 
   // Filter supervisors based on the selected student's district
   const filteredSupervisors = supervisors.filter(
-    (supervisor) => supervisor.district === students.find((student) => student._id === selectedStudent)?.district
+    (supervisor) =>
+      supervisor.district === students.find((student) => student._id === (selectedStudent && selectedStudent.value))?.district
   );
 
   return (
     <form onSubmit={handleSubmit}>
       <div>
         <label>Select Student:</label>
-        <select value={selectedStudent} onChange={handleStudentChange}>
-          <option value="" disabled>Select a student</option>
-          {students.map((student) => (
-            <option key={student._id} value={student._id}>
-              {student.name}
-            </option>
-          ))}
-        </select>
+        <Select
+          value={selectedStudent}
+          onChange={handleStudentChange}
+          options={students.map((student) => ({ value: student._id, label: student.name }))}
+          isSearchable
+          placeholder="Search for a student..."
+        />
       </div>
       <div>
         <label>Select Supervisor in the same district:</label>
-        <select value={selectedSupervisor} onChange={handleSupervisorChange}>
-          <option value="" disabled>Select a supervisor</option>
-          {filteredSupervisors.map((supervisor) => (
-            <option key={supervisor._id} value={supervisor._id}>
-              {supervisor.name}
-            </option>
-          ))}
-        </select>
+        <Select
+          value={selectedSupervisor}
+          onChange={handleSupervisorChange}
+          options={filteredSupervisors.map((supervisor) => ({ value: supervisor._id, label: supervisor.name }))}
+          isSearchable
+          placeholder="Search for a supervisor..."
+        />
       </div>
       <div>
         <label>Marks:</label>
