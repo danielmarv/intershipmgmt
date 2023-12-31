@@ -14,8 +14,7 @@ const CreateStudent = () => {
             alert(successMessage);
             router.push('/tracking');
             const timeout = setTimeout(() => {
-                setSuccessMessage('Registration successful! Your registration number is ' +
-                formData.regNo + ' and is the one you will use to track your internship status.');
+                setSuccessMessage('Hello '+ formData.regNo + ', Registered successfully!');
                 setFormData({
                     fullName: '',
                     campusName: '',
