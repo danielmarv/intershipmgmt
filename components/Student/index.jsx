@@ -101,10 +101,13 @@ const Students = () => {
                     Name
                   </th>
                   <th  className="min-w-[220px] py-4 px-4 font-medium text-black dark:text-white">
-                  Email
+                  School
                   </th>
                   <th className="min-w-[220px] py-4 px-4 font-medium text-black dark:text-white ">
-                  Reg No.
+                  Near Town
+                  </th>
+                  <th className="min-w-[220px] py-4 px-4 font-medium text-black dark:text-white ">
+                  Phone No.
                   </th>
                   <th className="py-4 px-4 font-medium text-black dark:text-white">
                     Actions
@@ -121,12 +124,17 @@ const Students = () => {
                     </td>
                     <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                       <h5 className="font-medium text-black dark:text-white">
-                        {student.emailId}
+                        {student.schoolName}
                       </h5>
                     </td>
                     <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                       <h5 className="font-medium text-black dark:text-white">
-                        {student.regNo}
+                        {student.townName}
+                      </h5>
+                    </td>
+                    <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
+                      <h5 className="font-medium text-black dark:text-white">
+                        {student.phoneNum}
                       </h5>
                     </td>
                     <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
