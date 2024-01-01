@@ -36,10 +36,12 @@ const MarkSheetForm = ({ students, supervisors, onSubmit }) => {
     });
   };
 
-  const filteredSupervisors = supervisors.filter(
-    (supervisor) =>
-      supervisor.district === students.find((student) => student._id === (selectedStudent && selectedStudent.value))?.district
-  );
+  const filteredSupervisors = supervisors.filter((supervisor) => {
+    const selectedStudentDistrictName = students.find((student) => student._id === (selectedStudent && selectedStudent.value))?.districtName;
+  
+    return supervisor.district === selectedStudentDistrictName;
+  });
+  
 
   return (
     <form onSubmit={handleSubmit}>
