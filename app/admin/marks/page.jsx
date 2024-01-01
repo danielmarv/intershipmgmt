@@ -11,11 +11,11 @@ const Marks = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const studentsResponse = await fetch('/api/students');
+        const studentsResponse = await fetch('/api/student');
         const studentsData = await studentsResponse.json();
         setStudents(studentsData);
 
-        const supervisorsResponse = await fetch('/api/supervisors');
+        const supervisorsResponse = await fetch('/api/supervisor');
         const supervisorsData = await supervisorsResponse.json();
         setSupervisors(supervisorsData);
       } catch (error) {
