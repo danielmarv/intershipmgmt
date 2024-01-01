@@ -36,7 +36,6 @@ const MarkSheetForm = ({ students, supervisors, onSubmit }) => {
     });
   };
 
-  // Filter supervisors based on the selected student's district
   const filteredSupervisors = supervisors.filter(
     (supervisor) =>
       supervisor.district === students.find((student) => student._id === (selectedStudent && selectedStudent.value))?.district
@@ -49,7 +48,7 @@ const MarkSheetForm = ({ students, supervisors, onSubmit }) => {
         <Select
           value={selectedStudent}
           onChange={handleStudentChange}
-          options={students.map((student) => ({ value: student._id, label: student.name }))}
+          options={students.map((student) => ({ value: student._id, label: student.fullName }))}
           isSearchable
           placeholder="Search for a student..."
         />
@@ -59,7 +58,7 @@ const MarkSheetForm = ({ students, supervisors, onSubmit }) => {
         <Select
           value={selectedSupervisor}
           onChange={handleSupervisorChange}
-          options={filteredSupervisors.map((supervisor) => ({ value: supervisor._id, label: supervisor.name }))}
+          options={filteredSupervisors.map((supervisor) => ({ value: supervisor._id, label: supervisor.fullName }))}
           isSearchable
           placeholder="Search for a supervisor..."
         />
