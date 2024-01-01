@@ -26,10 +26,32 @@ const Marks = () => {
     fetchData();
   }, []); 
 
-  const handleSubmit = (data) => {
-    console.log('Submitted data:', data);
-    setSubmittedData(data);
+  const handleSubmit = async (data) => {
+    try {
+      const response = await fetch('/api/marks', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (response.ok) {
+        const result = await response.json();
+        setSubmittedData(result);
+        console.error('Failed to submit data:', response.status);
+      }
+    } catch (error) {
+      console.error('Error submitting data:', error);
+    }
   };
+
+//   const filteredSupervisors = supervisors.filter((supervisor) => {
+//     const selectedStudentDistrictName = students.find((student) => student._id === (selectedStudent && selectedStudent.value))?.districtName;
+  
+//     return supervisor.district === selectedStudentDistrictName;
+//   });
+  
 
   return (
     <div>
