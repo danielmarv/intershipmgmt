@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-
 import Form from '@components/Form';
 
 const CreateStudent = () => {

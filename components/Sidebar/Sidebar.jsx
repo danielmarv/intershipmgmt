@@ -43,7 +43,7 @@ const  Sidebar = () => {
             <SidebarItem label='DashBoard' Icon={HomeIcon} navPath='/admin'/>
             <SidebarItem label='Students' Icon={UserPlusIcon} navPath='/admin/student-list'/>
             <SidebarItem label='Supervisors' Icon={UsersIcon} navPath='/admin/supervisor'/>
-            <SidebarItem label='Marks ASS' Icon={UsersIcon} navPath='/admin'/>
+            <SidebarItem label='Marks ASS' Icon={UsersIcon} navPath='/admin/marks'/>
             {/* <SidebarItem label='' Icon={UsersIcon} navPath='/logout'/> */}
           </div>
         ) : (

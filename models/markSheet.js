@@ -8,7 +8,7 @@ const markSheetSchema = new Schema({
   },
   supervisor: {
     type: Schema.Types.ObjectId,
-    ref: 'InternshipSupervisor',
+    ref: 'Supervisor',
     required: true,
   },
   marks: {
