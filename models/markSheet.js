@@ -2,19 +2,18 @@ import { Schema, model, models } from 'mongoose';
 
 const markSheetSchema = new Schema({
   student: {
-    type: Schema.Types.ObjectId,
-    ref: 'Student',
+    type: String,
     required: true,
   },
   supervisor: {
-    type: Schema.Types.ObjectId,
-    ref: 'Supervisor',
+    type: String,
     required: true,
   },
   marks: {
     type: Number,
     required: true,
   },
+
 },
 { timestamps: true }
 );

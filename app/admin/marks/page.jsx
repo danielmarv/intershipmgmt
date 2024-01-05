@@ -7,11 +7,6 @@ import Toast from '@components/Toast';
 const Marks = () => {
   const [students, setStudents] = useState([]);
   const [supervisors, setSupervisors] = useState([]);
-  const [formData, setFormData] = useState({
-    student: '',
-    supervisor: '',
-    marks: '',
-  });
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [errors, setErrors] = useState(false); 
@@ -35,20 +30,13 @@ const Marks = () => {
     fetchData();
   }, []); 
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleSubmit = async (data) => {
+    // e.preventDefault();
     setSubmitting(true);
     try {
       const response = await fetch('/api/marks', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          student: formData.student,
-          supervisor: formData.supervisor,
-          marks: formData.marks,
-        }),
+        body: JSON.stringify(data),
       });
 
       if (response.ok) {
@@ -71,13 +59,13 @@ const Marks = () => {
       <MarkSheetForm 
         students={students} 
         supervisors={supervisors}
-        formData={formData}
-        setFormData={setFormData} 
+        // formData={formData}
+        // setFormData={setFormData} 
         submitting={submitting}
-        handleSubmit={handleSubmit} 
+        onSubmit={handleSubmit} 
       />
 
-      </>
+    </>
 
   );
 };
