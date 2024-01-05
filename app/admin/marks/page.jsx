@@ -6,7 +6,12 @@ import MarkSheetForm from '@components/Marks';
 const Marks = () => {
   const [students, setStudents] = useState([]);
   const [supervisors, setSupervisors] = useState([]);
-  const [submittedData, setSubmittedData] = useState(null);
+  const [formData, setFormData] = useState({
+    student: '',
+    supervisor: '',
+    marks: '',
+  });
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -26,14 +31,19 @@ const Marks = () => {
     fetchData();
   }, []); 
 
-  const handleSubmit = async (data) => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     try {
       const response = await fetch('/api/marks', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify({
+          student: formData.student,
+          supervisor: formData.supervisor,
+          marks: formData.marks,
+        }),
       });
 
       if (response.ok) {
