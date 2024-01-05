@@ -1,4 +1,3 @@
-import { useState, useEffect } from 'react';
 import Select from 'react-select';
 
 const MarkSheetForm = ({ formData, setFormData, students, supervisors, onSubmit, handleSubmit }) => {
