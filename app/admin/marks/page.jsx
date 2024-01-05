@@ -11,6 +11,7 @@ const Marks = () => {
     supervisor: '',
     marks: '',
   });
+  const [submitting, setSubmitting] = useState();
 
 
   useEffect(() => {
@@ -33,6 +34,7 @@ const Marks = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setSubmitting(true);
     try {
       const response = await fetch('/api/marks', {
         method: 'POST',
@@ -53,14 +55,22 @@ const Marks = () => {
       }
     } catch (error) {
       console.error('Error submitting data:', error);
+    } finally {
+      setSubmitting(false);
     }
   };
 
   return (
-    <div>
-      <h1>Mark Sheet Form</h1>
-      <MarkSheetForm students={students} supervisors={supervisors} onSubmit={handleSubmit} />
-    </div>
+
+      <MarkSheetForm 
+        students={students} 
+        supervisors={supervisors}
+        formData={formData}
+        setFormData={setFormData} 
+        submitting={submitting}
+        handleSubmit={handleSubmit} 
+      />
+
   );
 };
 

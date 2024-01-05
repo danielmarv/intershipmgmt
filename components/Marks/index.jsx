@@ -1,6 +1,6 @@
 import Select from 'react-select';
 
-const MarkSheetForm = ({ formData, setFormData, students, supervisors, onSubmit, handleSubmit }) => {
+const MarkSheetForm = ({ formData, setFormData, students, supervisors, handleSubmit }) => {
 
   return (
     <form onSubmit={handleSubmit}>
