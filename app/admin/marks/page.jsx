@@ -50,12 +50,6 @@ const Marks = () => {
     <div>
       <h1>Mark Sheet Form</h1>
       <MarkSheetForm students={students} supervisors={supervisors} onSubmit={handleSubmit} />
-      {submittedData && (
-        <div>
-          <h2>Submitted Data</h2>
-          <pre>{JSON.stringify(submittedData, null, 2)}</pre>
-        </div>
-      )}
     </div>
   );
 };
