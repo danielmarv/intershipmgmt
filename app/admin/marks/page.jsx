@@ -46,13 +46,6 @@ const Marks = () => {
     }
   };
 
-//   const filteredSupervisors = supervisors.filter((supervisor) => {
-//     const selectedStudentDistrictName = students.find((student) => student._id === (selectedStudent && selectedStudent.value))?.districtName;
-  
-//     return supervisor.district === selectedStudentDistrictName;
-//   });
-  
-
   return (
     <div>
       <h1>Mark Sheet Form</h1>

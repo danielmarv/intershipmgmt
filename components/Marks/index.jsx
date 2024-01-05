@@ -3,15 +3,10 @@
 import { useState, useEffect } from 'react';
 import Select from 'react-select';
 
-const MarkSheetForm = ({ students, supervisors, onSubmit }) => {
-  const [selectedStudent, setSelectedStudent] = useState(null);
-  const [selectedSupervisor, setSelectedSupervisor] = useState(null);
+const MarkSheetForm = ({ students, supervisors, onSubmit, handleSubmit }) => {
+  const [selectedStudent, setSelectedStudent] = useState('');
+  const [selectedSupervisor, setSelectedSupervisor] = useState('');
   const [marks, setMarks] = useState('');
-
-  useEffect(() => {
-    // Reset supervisor when selected student changes
-    setSelectedSupervisor(null);
-  }, [selectedStudent]);
 
   const handleStudentChange = (selectedOption) => {
     setSelectedStudent(selectedOption);
@@ -30,8 +25,8 @@ const MarkSheetForm = ({ students, supervisors, onSubmit }) => {
 
     // Pass the selected values to the parent component for submission
     onSubmit({
-      student: selectedStudent ? selectedStudent.value : null,
-      supervisor: selectedSupervisor ? selectedSupervisor.value : null,
+      student: selectedStudent,
+      supervisor: selectedSupervisor,
       marks: marks,
     });
   };
