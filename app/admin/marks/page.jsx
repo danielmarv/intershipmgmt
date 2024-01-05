@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import MarkSheetForm from '@components/Marks';
+import Toast from '@components/Toast';
 
 const Marks = () => {
   const [students, setStudents] = useState([]);
@@ -11,7 +12,9 @@ const Marks = () => {
     supervisor: '',
     marks: '',
   });
-  const [submitting, setSubmitting] = useState();
+  const [submitting, setSubmitting] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const [errors, setErrors] = useState(false); 
 
 
   useEffect(() => {
@@ -49,18 +52,21 @@ const Marks = () => {
       });
 
       if (response.ok) {
-        const result = await response.json();
-        setSubmittedData(result);
+        setSubmitted(true);
         console.error('Failed to submit data:', response.status);
       }
     } catch (error) {
       console.error('Error submitting data:', error);
+      setErrors(error);
     } finally {
       setSubmitting(false);
     }
   };
 
   return (
+    <>
+      {submitted && <Toast type={'success'} timeout={8000} message={'Marks created succussfully'} />}
+      {errors && <Toast type={'errors'} timeout={8000} message={`${errors}`} />}
 
       <MarkSheetForm 
         students={students} 
@@ -70,6 +76,8 @@ const Marks = () => {
         submitting={submitting}
         handleSubmit={handleSubmit} 
       />
+
+      </>
 
   );
 };
