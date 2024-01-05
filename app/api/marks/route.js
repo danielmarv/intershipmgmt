@@ -1,7 +1,7 @@
 import { connectedToDB } from '@utils/database';
 import MarkSheet from '@models/markSheet';
 
-export const POST = async (req, res) => {
+export const POST = async (req) => {
 
     try {
         connectedToDB();
@@ -20,7 +20,7 @@ export const POST = async (req, res) => {
 
     } catch (error) {
         console.error('Error creating mark sheet:', error);
-        return new Response("Failed to create a new Admin",(error.message || error), {
+        return new Response("Failed to create a new mark",(error.message || error), {
             status: 500,
         });
     }

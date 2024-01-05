@@ -15,9 +15,6 @@ const markSheetSchema = new Schema({
     type: Number,
     required: true,
   },
-  supervisionDate: {
-    type: Date,
-  },
 },
 { timestamps: true }
 );
