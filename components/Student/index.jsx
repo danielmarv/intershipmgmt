@@ -12,6 +12,26 @@ const Students = () => {
   const [refreshInterval, setRefreshInterval] = useState(60000); // Set the refresh interval in milliseconds (e.g., 60000 ms = 1 minute)
   const [allStudents, setAllStudents] = useState([]);
 
+
+  const exportData = () => {
+    // Create CSV content
+    const csvContent =
+      "data:text/csv;charset=utf-8," +
+      allStudents.map((student) =>
+        Object.values(student).map((value) => `"${value}"`).join(",")
+      ).join("\n");
+
+    // Create a blob with the CSV data
+    const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8" });
+
+    // Create a link element and trigger the download
+    const link = document.createElement("a");
+    link.href = window.URL.createObjectURL(blob);
+    link.setAttribute("download", "student_data.csv");
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
   const fetchStudents = async () => {
     setIsLoading(true)
 
@@ -83,9 +103,9 @@ const Students = () => {
                 className={
                   'rounded text-white bg-blue-500 border border-blue-500 hover:bg-dark-blue hover:border-dark-blue font-medium text-sm'
                 }
-                path='/'
+                onClick={exportData}
               >
-                Home
+                Export Data
               </Button>
             </div>
           ))}
