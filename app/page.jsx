@@ -86,9 +86,6 @@ const CreateStudent = () => {
 
     return (
         <>
-            {/* {successMessage && (
-                <div style={{ color: 'green' }}>{successMessage}</div>
-            )} */}
             <Form 
                 type="Register"
                 formData={formData}

@@ -55,19 +55,8 @@ const StudentSchema = new Schema({
     },
     markSheet: [
         {
-            supervisor: {
-                type: Schema.Types.ObjectId,
-                ref: 'Supervisor',
-                required: true,
-            },
-            marks: {
-                type: Number,
-                required: true,
-            },
-            supervisionDate: {
-                type: Date,
-                required: true,
-            },
+            type: Schema.Types.ObjectId,
+            ref: 'MarkSheet',
         },
     ],
 

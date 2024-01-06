@@ -2,11 +2,15 @@
 
 import { useState, useEffect } from 'react';
 import MarkSheetForm from '@components/Marks';
+import Toast from '@components/Toast';
 
 const Marks = () => {
   const [students, setStudents] = useState([]);
   const [supervisors, setSupervisors] = useState([]);
-  const [submittedData, setSubmittedData] = useState(null);
+  const [submitting, setSubmitting] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const [errors, setErrors] = useState(false); 
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -26,22 +30,43 @@ const Marks = () => {
     fetchData();
   }, []); 
 
-  const handleSubmit = (data) => {
-    console.log('Submitted data:', data);
-    setSubmittedData(data);
+  const handleSubmit = async (data) => {
+    // e.preventDefault();
+    setSubmitting(true);
+    try {
+      const response = await fetch('/api/marks', {
+        method: 'POST',
+        body: JSON.stringify(data),
+      });
+
+      if (response.ok) {
+        setSubmitted(true);
+        console.error('Failed to submit data:', response.status);
+      }
+    } catch (error) {
+      console.error('Error submitting data:', error);
+      setErrors(error);
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
-    <div>
-      <h1>Mark Sheet Form</h1>
-      <MarkSheetForm students={students} supervisors={supervisors} onSubmit={handleSubmit} />
-      {submittedData && (
-        <div>
-          <h2>Submitted Data</h2>
-          <pre>{JSON.stringify(submittedData, null, 2)}</pre>
-        </div>
-      )}
-    </div>
+    <>
+      {submitted && <Toast type={'success'} timeout={8000} message={'Marks created succussfully'} />}
+      {errors && <Toast type={'errors'} timeout={8000} message={`${errors}`} />}
+
+      <MarkSheetForm 
+        students={students} 
+        supervisors={supervisors}
+        // formData={formData}
+        // setFormData={setFormData} 
+        submitting={submitting}
+        onSubmit={handleSubmit} 
+      />
+
+    </>
+
   );
 };
 
