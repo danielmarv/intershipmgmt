@@ -6,6 +6,8 @@ import Button from '@components/Button';
 import ContentBox from '@components/ContentBox';
 import Toast from '@components/Toast';
 import EmptyState from '@components/EmptyState';
+import XLSX from 'xlsx';
+
 const Students = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
@@ -14,6 +16,7 @@ const Students = () => {
 
 
   const exportData = () => {
+    
     // Create CSV content
     const selectedFields = ['fullName', 'schoolName', 'townName', 'phoneNum', 'campusName', 'districtName', 'schoolPractices', 'moneyPaid', 'regNo', 'year'];
 
