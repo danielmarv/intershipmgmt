@@ -15,22 +15,24 @@ const Students = () => {
 
   const exportData = () => {
     // Create CSV content
-    const csvContent =
-      "data:text/csv;charset=utf-8," +
-      allStudents.map((student) =>
-        Object.values(student).map((value) => `"${value}"`).join(",")
-      ).join("\n");
+    const selectedFields = ['fullName', 'schoolName', 'townName', 'phoneNum', 'campusName', 'districtName', 'schoolPractices', 'moneyPaid', 'regNo', 'year'];
 
-    // Create a blob with the CSV data
-    const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8" });
+    // Filter data based on selected fields
+    const filteredData = allStudents.map((student) =>
+      Object.fromEntries(
+        Object.entries(student).filter(([key]) => selectedFields.includes(key))
+      )
+    );
 
-    // Create a link element and trigger the download
-    const link = document.createElement("a");
-    link.href = window.URL.createObjectURL(blob);
-    link.setAttribute("download", "student_data.csv");
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+    // Create a worksheet
+    const ws = XLSX.utils.json_to_sheet(filteredData);
+
+    // Create a workbook
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Students');
+
+    // Save the workbook to a file
+    XLSX.writeFile(wb, 'student_data.xlsx');
   };
   const fetchStudents = async () => {
     setIsLoading(true)
