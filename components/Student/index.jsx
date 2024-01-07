@@ -6,7 +6,6 @@ import Button from '@components/Button';
 import ContentBox from '@components/ContentBox';
 import Toast from '@components/Toast';
 import EmptyState from '@components/EmptyState';
-import XLSX from 'xlsx';
 
 const Students = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -15,27 +14,33 @@ const Students = () => {
   const [allStudents, setAllStudents] = useState([]);
 
 
-  const exportData = () => {
-    
-    // Create CSV content
-    const selectedFields = ['fullName', 'schoolName', 'townName', 'phoneNum', 'campusName', 'districtName', 'schoolPractices', 'moneyPaid', 'regNo', 'year'];
+  const exportData = async () => {
+    try {
+      // Dynamically import the xlsx library
+      const { utils, writeFile } = await import('xlsx');
 
-    // Filter data based on selected fields
-    const filteredData = allStudents.map((student) =>
-      Object.fromEntries(
-        Object.entries(student).filter(([key]) => selectedFields.includes(key))
-      )
-    );
+      // Select fields to include in the Excel file
+      const selectedFields = ['fullName', 'schoolName', 'townName', 'phoneNum', 'campusName', 'districtName', 'schoolPractices', 'moneyPaid', 'regNo', 'year'];
 
-    // Create a worksheet
-    const ws = XLSX.utils.json_to_sheet(filteredData);
+      // Filter data based on selected fields
+      const filteredData = allStudents.map((student) =>
+        Object.fromEntries(
+          Object.entries(student).filter(([key]) => selectedFields.includes(key))
+        )
+      );
 
-    // Create a workbook
-    const wb = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, 'Students');
+      // Create a worksheet
+      const ws = utils.json_to_sheet(filteredData);
 
-    // Save the workbook to a file
-    XLSX.writeFile(wb, 'student_data.xlsx');
+      // Create a workbook
+      const wb = utils.book_new();
+      utils.book_append_sheet(wb, ws, 'Students');
+
+      // Save the workbook to a file
+      writeFile(wb, 'student_data.xlsx');
+    } catch (error) {
+      console.error('Error loading xlsx library:', error);
+    }
   };
   const fetchStudents = async () => {
     setIsLoading(true)
