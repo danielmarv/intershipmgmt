@@ -6,6 +6,7 @@ import Button from '@components/Button';
 import ContentBox from '@components/ContentBox';
 import Toast from '@components/Toast';
 import EmptyState from '@components/EmptyState';
+
 const Students = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
@@ -13,24 +14,33 @@ const Students = () => {
   const [allStudents, setAllStudents] = useState([]);
 
 
-  const exportData = () => {
-    // Create CSV content
-    const csvContent =
-      "data:text/csv;charset=utf-8," +
-      allStudents.map((student) =>
-        Object.values(student).map((value) => `"${value}"`).join(",")
-      ).join("\n");
+  const exportData = async () => {
+    try {
+      // Dynamically import the xlsx library
+      const { utils, writeFile } = await import('xlsx');
 
-    // Create a blob with the CSV data
-    const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8" });
+      // Select fields to include in the Excel file
+      const selectedFields = ['fullName', 'schoolName', 'townName', 'phoneNum', 'campusName', 'districtName', 'schoolPractices', 'moneyPaid', 'regNo', 'year'];
 
-    // Create a link element and trigger the download
-    const link = document.createElement("a");
-    link.href = window.URL.createObjectURL(blob);
-    link.setAttribute("download", "student_data.csv");
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+      // Filter data based on selected fields
+      const filteredData = allStudents.map((student) =>
+        Object.fromEntries(
+          Object.entries(student).filter(([key]) => selectedFields.includes(key))
+        )
+      );
+
+      // Create a worksheet
+      const ws = utils.json_to_sheet(filteredData);
+
+      // Create a workbook
+      const wb = utils.book_new();
+      utils.book_append_sheet(wb, ws, 'Students');
+
+      // Save the workbook to a file
+      writeFile(wb, 'student_data.xlsx');
+    } catch (error) {
+      console.error('Error loading xlsx library:', error);
+    }
   };
   const fetchStudents = async () => {
     setIsLoading(true)
