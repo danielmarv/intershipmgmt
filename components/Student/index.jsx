@@ -10,33 +10,27 @@ import EmptyState from '@components/EmptyState';
 const Students = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
-  const [refreshInterval, setRefreshInterval] = useState(60000); // Set the refresh interval in milliseconds (e.g., 60000 ms = 1 minute)
+  const [refreshInterval, setRefreshInterval] = useState(600000); 
   const [allStudents, setAllStudents] = useState([]);
 
 
   const exportData = async () => {
     try {
-      // Dynamically import the xlsx library
       const { utils, writeFile } = await import('xlsx');
 
-      // Select fields to include in the Excel file
       const selectedFields = ['fullName', 'schoolName', 'townName', 'phoneNum', 'campusName', 'districtName', 'schoolPractices', 'moneyPaid', 'regNo', 'year'];
 
-      // Filter data based on selected fields
       const filteredData = allStudents.map((student) =>
         Object.fromEntries(
           Object.entries(student).filter(([key]) => selectedFields.includes(key))
         )
       );
 
-      // Create a worksheet
       const ws = utils.json_to_sheet(filteredData);
 
-      // Create a workbook
       const wb = utils.book_new();
       utils.book_append_sheet(wb, ws, 'Students');
 
-      // Save the workbook to a file
       writeFile(wb, 'student_data.xlsx');
     } catch (error) {
       console.error('Error loading xlsx library:', error);
