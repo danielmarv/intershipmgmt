@@ -58,9 +58,6 @@ const CreateStudent = () => {
 
     return (
         <>
-            {successMessage && (
-                <div style={{ color: 'green' }}>{successMessage}</div>
-            )}
             <form onSubmit={createStudent} >
             <div className="col-span-6 sm:col-span-3">
               <label
